@@ -11,13 +11,11 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.51.1-canary.v20251006205521",
-    "@heroicons/react": "^2.2.0",
     "lucide-react": "^0.544.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
     "react-player": "^3.3.3",
-    "react-router-dom": "^7.9.3",
     "react-toastify": "^11.0.5"
   },
   "devDependencies": {
