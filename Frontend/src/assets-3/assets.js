@@ -4,14 +4,21 @@ import googlePlay from './googlePlay.svg'
 import appStore from './appStore.svg'
 import screenImage from './screenImage.svg'
 import profile from './profile.png'
-
+import mail_icon from './mail_icon.svg'
+import person_icon from './person_icon.svg'
+import lock_icon from './lock_icon.svg'
+import google from './google.png'
 export const assets = {
     logo,
     marvelLogo,
     googlePlay,
     appStore,
     screenImage,
-    profile
+    profile,
+    mail_icon,
+    person_icon,
+    lock_icon,
+    google
 }
 
 export const dummyTrailers = [
@@ -327,7 +334,7 @@ export const dummyBookingData = [
             showPrice: 59,
         },
         "amount": 147,
-        "bookedSeats": ["A1", "A2","A3"],
+        "bookedSeats": ["A1", "A2", "A3"],
         "isPaid": true,
     },
 ]

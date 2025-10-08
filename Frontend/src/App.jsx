@@ -9,6 +9,8 @@ import SeatLayout from './Pages/SeatLayout'
 import Favorite from './Pages/Favorite'
 import MyBooking from './Pages/MyBooking'
 import { Toaster } from "react-hot-toast"
+import Login from './Pages/Login'
+import SSOCallback from './Pages/SSOCallback'
 
 const App = () => {
   const IsAdminRoutes = useLocation().pathname.startsWith("/admin")
@@ -19,6 +21,9 @@ const App = () => {
       {!IsAdminRoutes && <Navbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/sso-callback" element={<SSOCallback />} />
+
+        <Route path="/login" element={<Login />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/movies/:id" element={<MovieDetail />} />
         <Route path="/movies/:id/:date" element={<SeatLayout />} />
