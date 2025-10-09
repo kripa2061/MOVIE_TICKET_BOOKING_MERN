@@ -1,4 +1,4 @@
-// src/Component/FeaturedSection.jsx
+
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -13,17 +13,17 @@ const FeaturedSection = () => {
 
   return (
     <div className="featured-section">
-      <div className="featured-header">
-        <BlurCircle top="0" right="-80px" />
-        <p className="featured-title">Now Showing</p>
-        <button onClick={() => navigate('/movies')} className="view-all-button">
-          View All
-          <ArrowRightIcon className="arrow-icon" />
-        </button>
-      </div>
+    <div className="featured-header">
+      <BlurCircle top="0" right="-80px" />
+      <p className="featured-title">Now Showing</p>
+      <button onClick={() => navigate('/movies')} className="view-all-button">
+        View All
+        <ArrowRightIcon className="arrow-icon" />
+      </button>
+ </ div>
 
-      <div className="movie-grid">
-        {dummyShowsData.slice(0, 4).map((show) => (
+  <div className="movie-grid">
+      {dummyShowsData.slice(0,4).map((show) => (
           <MovieCard key={show._id} movie={show} />
         ))}
       </div>
@@ -40,8 +40,8 @@ const FeaturedSection = () => {
           className="show-more-button"
         >
           Show more
-        </button>
-      </div>
+    </button>
+     </div>
     </div>
   );
 };
