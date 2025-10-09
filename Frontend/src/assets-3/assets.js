@@ -35,6 +35,10 @@ export const dummyTrailers = [
         videoUrl: 'https://www.youtube.com/embed/1pHDWnXmK7Y'
     },
     {
+        image:"https://img.youtube.com/vi/mjBym9uKth4/maxresdefault.jpg",
+videoUrl:"https://www.youtube.com/embed/mjBym9uKth4"
+    },
+    {
         image: "https://img.youtube.com/vi/umiKiW4En9g/maxresdefault.jpg",
         videoUrl: 'https://www.youtube.com/embed/umiKiW4En9g'
     },
@@ -82,6 +86,55 @@ export const dummyShowsData = [
         "vote_count": 15000,
         "runtime": 102,
     },
+   {
+  "_id": "654321",
+  "id": 654321,
+  "title": "Chhakka Panja 5",
+  "overview": "The latest installment in the Chhakka Panja series, this comedy-drama follows the hilarious misadventures of its beloved characters as they navigate love, friendship, and social issues in modern-day Nepal.",
+  "poster_path": "https://resizing.flixster.com/l5nZW2MJxtGvZJGyJMb-hmuXPSc=/206x305/v2/https://resizing.flixster.com/4Tb1AA7NAxK4hiPVuVjE42B7Zzc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzBhM2E1MTdkLTY2MzMtNDZlZi1iNjhhLThlZjNlOTM2MTVkMC5qcGc=",
+  "backdrop_path": "https://resizing.flixster.com/l5nZW2MJxtGvZJGyJMb-hmuXPSc=/206x305/v2/https://resizing.flixster.com/4Tb1AA7NAxK4hiPVuVjE42B7Zzc=/ems.cHJkLWVtcy1hc3NldHMvbW92aWVzLzBhM2E1MTdkLTY2MzMtNDZlZi1iNjhhLThlZjNlOTM2MTVkMC5qcGc=",
+  "genres": [
+    { "id": 35, "name": "Comedy" },
+    { "id": 18, "name": "Drama" }
+  ],
+  "casts": [
+    { "name": "Deepak Raj Giri", "role": "Mundu" },
+    { "name": "Jeetu Nepal", "role": "Supporting Role" },
+    { "name": "Barsha Raut", "role": "Main Female Lead" }
+  ],
+  "release_date": "2025-10-20",
+  "original_language": "ne",
+  "tagline": "Laugh, cry, and celebrate Nepali life!",
+  "vote_average": 7.5,
+  "vote_count": 8500,
+  "runtime": 150
+},
+
+{
+  "_id": "123456",
+  "id": 123456,
+  "title": "War 2",
+  "overview": "In this high-octane spy thriller, Hrithik Roshan reprises his role as Kabir, teaming up with Jr NTR's character to thwart a global conspiracy. Directed by Ayan Mukerji, the film expands the YRF Spy Universe with intense action sequences and a gripping storyline.",
+  "poster_path": "https://i.pinimg.com/736x/b0/9f/79/b09f7935b6abb19b92b084c4fdc3b2b2.jpg",
+  "backdrop_path": "https://i.pinimg.com/736x/b0/9f/79/b09f7935b6abb19b92b084c4fdc3b2b2.jpg",
+  "genres": [
+    { "id": 28, "name": "Action" },
+    { "id": 53, "name": "Thriller" },
+    { "id": 80, "name": "Crime" }
+  ],
+  "casts": [
+    { "name": "Hrithik Roshan", "role": "Kabir" },
+    { "name": "Jr NTR", "role": "Agent Vikram" },
+    { "name": "Kiara Advani", "role": "Nisha" }
+  ],
+  "release_date": "2025-08-14",
+  "original_language": "hi",
+  "tagline": "The battle continues.",
+  "vote_average": 7.8,
+  "vote_count": 12000,
+  "runtime": 145
+},
+
     {
         "_id": "1232546",
         "id": 1232546,
@@ -240,49 +293,8 @@ export const dummyShowsData = [
     "vote_average": 8.1,
     "vote_count": 21250,
     "runtime": 115
-},
-{
-  "_id": "movie1001",
-  "id": 862,  // Toy Story (1995)
-  "title": "Toy Story",
-  "overview": "A story of the adventures of Woody (a talking toy) as he deals with jealousy and rivalry when Buzz Lightyear appears on the scene.",
-  "poster_path": "https://image.tmdb.org/t/p/w500/rhIRbceoE9lR4veEXuwCC2wARtG.jpg",
-  "backdrop_path": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3I1sd7LSAioEZqY-ildb4OvNHvbc7QkxS5sOvQB_PUQfhZJz2",
-  "genres": [
-    { "id": 16, "name": "Animation" },
-    { "id": 35, "name": "Comedy" },
-    { "id": 10751, "name": "Family" }
-  ],
-  "casts": dummyCastsData,
-  "release_date": "1995-11-22",
-  "original_language": "en",
-  "tagline": "The toys are alive.",
-  "vote_average": 8.3,
-  "vote_count": 12345,
-  "runtime": 81
-},
-
-
-{
-    "_id": "333444",
-    "id": 333444,
-    "title": "Love in Orbit",
-    "overview": "Two astronauts stranded on a space station must rely on each other to survive, finding love among the stars.",
-    "poster_path": "https://image.tmdb.org/t/p/original/3nv2TEz2u178xEXAfC5I6nWVTBR.jpg",
-    "backdrop_path": "https://image.tmdb.org/t/p/original/zNugnnR5KEmq9EzLcl0Me1UmHYk.jpg",
-    "genres": [
-        { "id": 10749, "name": "Romance" },
-        { "id": 878, "name": "Science Fiction" },
-        { "id": 18, "name": "Drama" }
-    ],
-    "casts": dummyCastsData,
-    "release_date": "2025-10-12",
-    "original_language": "en",
-    "tagline": "Even in space, love finds a way.",
-    "vote_average": 7.6,
-    "vote_count": 15800,
-    "runtime": 112
 }
+
 
 ]
 

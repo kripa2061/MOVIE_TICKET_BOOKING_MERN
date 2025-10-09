@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { StarIcon, Heart } from 'lucide-react';
 import { useFavorites } from '../Context/FavoritesContext';
 import './MovieCard.css';
+import timeFormat from '../lib/timeformat';
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const MovieCard = ({ movie }) => {
 
       <p className="movie-meta">
         {new Date(movie.release_date).getFullYear()} ·{' '}
-        {movie.genres.slice(0, 4).map((genre) => genre.name).join(' | ')} · {movie.runtime} min
+        {movie.genres.slice(0, 4).map((genre) => genre.name).join(' | ')} · {timeFormat(movie.runtime)}
       </p>
 
       <div className="movie-footer">
