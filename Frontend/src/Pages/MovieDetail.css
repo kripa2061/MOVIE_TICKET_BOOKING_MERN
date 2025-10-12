@@ -1,0 +1,99 @@
+.movie-detail-container {
+  padding: 30px 24px;
+}
+
+@media (min-width: 768px) {
+  .movie-detail-container {
+    padding: 50px 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .movie-detail-container {
+    padding: 50px 160px;
+  }
+}
+
+.movie-detail-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 96rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .movie-detail-wrapper {
+    flex-direction: row;
+  }
+}
+
+.movie-poster {
+  border-radius: 12px;
+  height: 416px;
+  max-width: 280px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.movie-info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.blur-circle {
+  position: absolute;
+  top: -100px;
+  left: -100px;
+  width: 200px;
+  height: 200px;
+  background: rgba(0, 112, 243, 0.3);
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: -1;
+}
+
+.movie-language {
+  color: #0070f3;
+}
+
+.movie-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  max-width: 24rem;
+  line-height: 1.2;
+}
+
+.movie-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ccc;
+}
+
+.star-icon {
+  font-size: 20px;
+  color: #0070f3;
+}
+
+.movie-overview {
+  color: #999;
+  margin-top: 8px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  max-width: 40rem;
+}
+
+.movie-meta {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 40px;
+  color: #555;
+}
