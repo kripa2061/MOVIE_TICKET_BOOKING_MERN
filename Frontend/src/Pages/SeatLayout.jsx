@@ -1,52 +1,74 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { assets, dummyDateTimeData, dummyShowsData } from '../assets-3/assets'
-import { ArrowLeftIcon, ArrowRight, ClockIcon, Loader } from 'lucide-react'
-import BlurCircle from '../Component/BlurCircle'
-import './seatLayout.css'
-import isoTimeFormat from '../lib/ISOTIMEFORMAT'
-import { toast } from 'react-hot-toast'
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { assets, dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
+import { ClockIcon, Loader, ArrowRight } from 'lucide-react';
+import BlurCircle from '../Component/BlurCircle';
+import './seatLayout.css';
+import isoTimeFormat from '../lib/ISOTIMEFORMAT';
+import { toast } from 'react-hot-toast';
 
 const SeatLayout = () => {
+  const navigate = useNavigate();
+  const { id, date } = useParams();
+  const [show, setShow] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedSeats, setSelectedSeats] = useState([]);
+
   const groupRow = [
     ['A', 'B'],
     ['C', 'D'],
     ['E', 'F'],
     ['G', 'H'],
     ['I', 'J']
-  ]
-
-  const { id, date } = useParams()
-  const [selectedTime, setSelectedTime] = useState(null)
-  const [selectedSeats, setSelectedSeats] = useState([])
-  const [show, setShow] = useState(null)
+  ];
 
   const getShow = async () => {
-    const showData = dummyShowsData.find(show => show._id === id)
+    const showData = dummyShowsData.find(show => show._id === id);
     if (showData) {
       setShow({
         movie: showData,
-        dateTime: dummyDateTimeData,
-      })
+        dateTime: dummyDateTimeData
+      });
     }
-  }
+  };
 
   useEffect(() => {
-    getShow()
-  }, [id])
+    getShow();
+  }, [id]);
 
   const handleSeatClick = (seatId) => {
     if (!selectedTime) {
-      toast.error("Please select a time first")
-      return
+      toast.error("Please select a time first");
+      return;
     }
 
-    if (selectedSeats.includes(seatId) && selectedSeats.length > 5) {
-      setSelectedSeats(selectedSeats.filter(s => s !== seatId))
+    if (selectedSeats.includes(seatId)) {
+      setSelectedSeats(selectedSeats.filter(s => s !== seatId));
     } else {
-      setSelectedSeats([...selectedSeats, seatId])
+      setSelectedSeats([...selectedSeats, seatId]);
     }
-  }
+  };
+
+  const handleProceedToCheckout = () => {
+    if (!selectedTime) {
+      toast.error("Please select a time first");
+      return;
+    }
+    if (!selectedSeats.length) {
+      toast.error("Please select at least one seat");
+      return;
+    }
+
+    navigate('/mybooking', {
+      state: {
+        selectedSeats,
+        selectedTime,
+        movie: show.movie,
+        date
+      }
+    });
+    window.scrollTo(0, 0);
+  };
 
   return (
     <div className="seat-layout">
@@ -85,7 +107,7 @@ const SeatLayout = () => {
 
             <div className="seat-groups">
               {groupRow.map((group, index) => {
-                const isLastTwo = index >= groupRow.length - 2  // I and J
+                const isLastTwo = index >= groupRow.length - 2;
                 return (
                   <div
                     key={index}
@@ -96,12 +118,10 @@ const SeatLayout = () => {
                     {group.map(row => (
                       <div
                         key={row}
-                        className={`seat-row ${index === 0 ? 'front-row' : ''} 
-                        
-                        ${isLastTwo ? 'last-two-rows' : ''}`}
+                        className={`seat-row ${index === 0 ? 'front-row' : ''} ${isLastTwo ? 'last-two-rows' : ''}`}
                       >
                         {Array.from({ length: 9 }, (_, i) => {
-                          const seatId = `${row}${i + 1}`
+                          const seatId = `${row}${i + 1}`;
                           return (
                             <button
                               key={seatId}
@@ -110,19 +130,21 @@ const SeatLayout = () => {
                             >
                               {seatId}
                             </button>
-                          )
+                          );
                         })}
                       </div>
                     ))}
                   </div>
-                )
+                );
               })}
             </div>
           </div>
 
           {/* Checkout */}
           <div className="checkout-payment">
-            <button className='payment-button'>Proceed to Check Out</button>
+            <button className='payment-button' onClick={handleProceedToCheckout}>
+              Proceed to Check Out
+            </button>
             <ArrowRight className='arrow-right' />
           </div>
         </div>
@@ -132,7 +154,7 @@ const SeatLayout = () => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default SeatLayout
+export default SeatLayout;

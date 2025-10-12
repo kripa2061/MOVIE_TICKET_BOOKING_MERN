@@ -6,7 +6,7 @@ import isoTimeFormat from '../lib/ISOTIMEFORMAT';
 import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react';
 import DateSelect from '../Component/DateSelect';
 import MovieCard from '../Component/MovieCard';
-import Loading from '../Component/Loading';
+import Loading from '../Component/Loading'; // import the spinner
 
 const MovieDetail = () => {
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const MovieDetail = () => {
   }, [id]);
 
   if (!showData) {
+    // Mount the Loading spinner while fetching data
     return <Loading />;
   }
 
