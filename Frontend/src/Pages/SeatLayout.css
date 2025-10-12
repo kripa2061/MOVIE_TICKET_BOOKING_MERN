@@ -1,0 +1,261 @@
+/* ---------- Overall Layout ---------- */
+.seat-layout {
+  position: relative;
+  min-height: 70vh;
+
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+}
+
+
+.layout-container {
+  position: relative;
+  display: flex;
+  gap: 50px;
+  padding: 40px;
+  flex-wrap: wrap;
+  z-index: 1;
+}
+
+.blur-background {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent 70%);
+  filter: blur(60px);
+  z-index: 0;
+}
+
+.time-section {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 25px 20px;
+  border-radius: 12px;
+  z-index: 1;
+  min-width: 180px;
+}
+
+.timing-header {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.available-time {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.time-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #1a1a1a;
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.time-item:hover {
+  transform: scale(1.05);
+  background: #333;
+}
+
+.time-item.selected-time {
+  background: #e74c3c;
+  box-shadow: 0 0 8px #e74c3c, 0 0 20px #e74c3c50;
+}
+
+.seats-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.screen-image {
+  width: 450px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+
+}
+
+.screen-side {
+  font-size: 15px;
+  font-family: "poppins";
+  margin-bottom: 17px;
+  position: absolute;
+  top: 7rem;
+}
+
+.seat-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top:60px;
+}
+
+.seat-row-group {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.seat-row {
+  display: flex;
+  gap: 10px;
+}
+
+
+.seat-button {
+  background: transparent;
+  border: 1px solid rgba(238, 236, 236, 0.328);
+  color: #ffffffc0;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  line-height: 36px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.seat-button:hover {
+  transform: scale(1.1);
+  background: #333;
+}
+
+.seat-button.selected {
+  background: #e74c3c;
+  box-shadow: 0 0 8px #e74c3c, 0 0 15px #e74c3c50;
+}
+.seat-row-label {
+  position: absolute;
+  left: -25px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+.last-two-rows-group{
+margin-top: 1px;
+  display:flex;
+ 
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+
+@media (max-width: 900px) {
+  .layout-container {
+    flex-direction: column;
+    gap: 30px;
+    padding: 20px;
+  }
+
+  .seat-row-group {
+    gap: 15px;
+  }
+
+  .screen-image {
+    width: 280px;
+  }
+}
+
+@media (max-width: 500px) {
+  .seat-button {
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 10px;
+  }
+
+  .seat-row-label {
+    left: -20px;
+    font-size: 10px;
+  }
+}
+
+.blur-background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+
+
+.front-row-group {
+  display: block;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.front-row {
+  display: flex;
+  margin: 10px 0;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.checkout-payment {
+  width: 120%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.payment-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 12px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.arrow-right {
+  position: absolute;
+  margin-left: 215px;
+  width: 20px;
+}
+
+.payment-button:hover {
+  background-color: #ff5a4e;
+  box-shadow: 0 0 25px rgba(231, 76, 60, 0.8), 0 0 50px rgba(231, 76, 60, 0.5);
+  transform: scale(1.05);
+}
+
+.front-row .seat-button {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-weight: 600;
+
+}
