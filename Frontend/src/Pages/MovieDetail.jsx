@@ -1,25 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import './MovieDetail.css'
-import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets'
-import isoTimeFormat from '../lib/ISOTIMEFORMAT'
-import { StarIcon } from 'lucide-react'
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import './MovieDetail.css';
+import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
+import isoTimeFormat from '../lib/ISOTIMEFORMAT';
+import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react';
+import DateSelect from '../Component/DateSelect';
+import MovieCard from '../Component/MovieCard';
+import Loading from '../Component/Loading';
 
 const MovieDetail = () => {
-  const { id } = useParams()
-  const [showData, setShowData] = useState(null)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [showData, setShowData] = useState(null);
 
   useEffect(() => {
-    const show = dummyShowsData.find(movie => movie._id === id)
+    const show = dummyShowsData.find(movie => movie._id === id);
     if (show) {
       setShowData({
         movie: show,
         dateTime: dummyDateTimeData
-      })
+      });
     }
-  }, [id])
+  }, [id]);
 
-  return showData ? (
+  if (!showData) {
+    return <Loading />;
+  }
+
+  return (
     <section className="detail-section">
       <div className="detail-content">
         <img
@@ -36,25 +44,61 @@ const MovieDetail = () => {
           <h1 className="detail-title">{showData.movie.title}</h1>
 
           <div className="detail-rating">
-            <StarIcon />
+            <StarIcon className="star-icon"/>
             {showData.movie.vote_average?.toFixed(1)} User Rating
           </div>
 
           <p className="detail-overview">{showData.movie.overview}</p>
 
           <p className="detail-meta">
-            {isoTimeFormat(showData.movie.runtime)} ·{" "}
-            {showData.movie.genres?.map(g => g.name).join(", ")} ·{" "}
-            {showData.movie.release_date?.split("-")[0]}
+            {isoTimeFormat(showData.movie.runtime)} ·{' '}
+            {showData.movie.genres?.map(g => g.name).join(', ')} ·{' '}
+            {showData.movie.release_date?.split('-')[0]}
           </p>
+
+          <div className="detail-buttons">
+            <button className="button-trailer">
+              <PlayCircleIcon className="icon"/>
+              Watch Trailer
+            </button>
+
+            <a href="#dateSelect" className="button-ticket">
+              Buy Ticket
+            </a>
+
+            <button className="button-heart">
+              <Heart className="icon"/>
+            </button>
+          </div>
         </div>
       </div>
-    </section>
-  ) : (
-    <div className="detail-loading">
-      {id ? `No movie found for ID ${id}` : "Loading..."}
-    </div>
-  )
-}
 
-export default MovieDetail
+      <p className="cast-title">Your Favorite Cast</p>
+      <div className="cast-list">
+        {showData.movie.casts?.slice(0, 12).map((cast, index) => (
+          <div key={index} className="cast-item">
+            <img src={cast.profile_path} alt={cast.name} className="cast-img"/>
+            <p className="cast-name">{cast.name}</p>
+          </div>
+        ))}
+      </div>
+
+      <DateSelect dateTime={showData.dateTime} id={id} />
+
+      <p className="recommend-title">You May Also Like</p>
+      <div className="recommend-list">
+        {dummyShowsData.slice(0,4).map((movie,index)=>(
+          <MovieCard key={index} movie={movie}/>
+        ))}
+      </div>
+
+      <div className="show-more-wrapper">
+        <button onClick={()=> {navigate('/movies'); scrollTo(0,0)}} className="show-more-btn">
+          Show more
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default MovieDetail;
