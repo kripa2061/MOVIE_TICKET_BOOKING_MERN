@@ -1,99 +1,97 @@
-.movie-detail-container {
-  padding: 30px 24px;
-}
-
-@media (min-width: 768px) {
-  .movie-detail-container {
-    padding: 50px 64px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .movie-detail-container {
-    padding: 50px 160px;
-  }
-}
-
-.movie-detail-wrapper {
+.detail-section {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #0e0e0e;
+  color: #fff;
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-  max-width: 96rem;
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  .movie-detail-wrapper {
-    flex-direction: row;
-  }
-}
-
-.movie-poster {
-  border-radius: 12px;
-  height: 416px;
-  max-width: 280px;
-  object-fit: cover;
-  margin: 0 auto;
-}
-
-.movie-info {
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+  overflow: hidden;
 }
 
-.blur-circle {
+.detail-content {
+  display: flex;
+  gap: 60px;
+  align-items: flex-start;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+}
+
+.detail-poster {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(227, 76, 94, 0.4);
+}
+
+.detail-info {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.detail-glow {
   position: absolute;
-  top: -100px;
+  top: -50px;
   left: -100px;
-  width: 200px;
-  height: 200px;
-  background: rgba(0, 112, 243, 0.3);
-  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(227, 76, 94, 0.25), transparent 70%);
   filter: blur(80px);
   z-index: -1;
 }
 
-.movie-language {
-  color: #0070f3;
-}
-
-.movie-title {
-  font-size: 2.5rem;
+.detail-lang {
+  color: #ff6b81;
   font-weight: 600;
-  max-width: 24rem;
-  line-height: 1.2;
+  font-size: 14px;
+  letter-spacing: 1px;
 }
 
-.movie-rating {
+.detail-title {
+  font-size: 38px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.detail-rating {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #ccc;
+  font-size: 16px;
+  color: #ffd369;
 }
 
-.star-icon {
-  font-size: 20px;
-  color: #0070f3;
+.detail-rating svg {
+  color: #ffd369;
+  width: 20px;
+  height: 20px;
 }
 
-.movie-overview {
+.detail-overview {
+  color: #bdbdbd;
+  line-height: 1.6;
+  font-size: 15px;
+  max-width: 700px;
+}
+
+.detail-meta {
   color: #999;
-  margin-top: 8px;
-  font-size: 0.875rem;
-  line-height: 1.5;
-  max-width: 40rem;
+  font-size: 14px;
 }
 
-.movie-meta {
-  font-size: 0.875rem;
-  color: #666;
-}
-
-.loading {
-  text-align: center;
-  font-size: 1.2rem;
-  padding: 40px;
-  color: #555;
+.detail-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #aaa;
+  font-size: 18px;
+  height: 100vh;
 }
