@@ -3,15 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import './MovieDetail.css';
 import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
 import isoTimeFormat from '../lib/ISOTIMEFORMAT';
-import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react';
+import { Heart, PlayCircleIcon, StarIcon, X } from 'lucide-react';
 import DateSelect from '../Component/DateSelect';
 import MovieCard from '../Component/MovieCard';
-import Loading from '../Component/Loading'; // import the spinner
+import Loading from '../Component/Loading';
 
 const MovieDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [showData, setShowData] = useState(null);
+  const [trailerOpen, setTrailerOpen] = useState(false); // state for modal
 
   useEffect(() => {
     const show = dummyShowsData.find(movie => movie._id === id);
@@ -23,13 +24,11 @@ const MovieDetail = () => {
     }
   }, [id]);
 
-  if (!showData) {
-    // Mount the Loading spinner while fetching data
-    return <Loading />;
-  }
+  if (!showData) return <Loading />;
 
   return (
     <section className="detail-section">
+      {/* Movie Content */}
       <div className="detail-content">
         <img
           src={showData.movie.poster_path}
@@ -58,7 +57,11 @@ const MovieDetail = () => {
           </p>
 
           <div className="detail-buttons">
-            <button className="button-trailer">
+            {/* Watch Trailer Button */}
+            <button 
+              className="button-trailer"
+              onClick={() => setTrailerOpen(true)}
+            >
               <PlayCircleIcon className="icon"/>
               Watch Trailer
             </button>
@@ -74,6 +77,7 @@ const MovieDetail = () => {
         </div>
       </div>
 
+      {/* Cast Section */}
       <p className="cast-title">Your Favorite Cast</p>
       <div className="cast-list">
         {showData.movie.casts?.slice(0, 12).map((cast, index) => (
@@ -86,6 +90,7 @@ const MovieDetail = () => {
 
       <DateSelect dateTime={showData.dateTime} id={id} />
 
+      {/* Recommendations */}
       <p className="recommend-title">You May Also Like</p>
       <div className="recommend-list">
         {dummyShowsData.slice(0,4).map((movie,index)=>(
@@ -98,6 +103,24 @@ const MovieDetail = () => {
           Show more
         </button>
       </div>
+
+      {/* Trailer Modal */}
+      {trailerOpen && (
+        <div className="trailer-modal">
+          <div className="trailer-content">
+            <button className="close-btn" onClick={() => setTrailerOpen(false)}>
+              <X size={24}/>
+            </button>
+            <iframe 
+              src={showData.movie.trailer}
+              title="Trailer"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
