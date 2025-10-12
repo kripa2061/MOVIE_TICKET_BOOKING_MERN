@@ -1,0 +1,138 @@
+/* Main section */
+.date-select-section {
+  padding: 30px 20px;
+  display: flex;
+  justify-content: center;
+  background-color: #000; /* dark background matching MovieDetail */
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+}
+
+/* Container */
+.date-select-container {
+  position: relative;
+  background-color: rgba(255, 76, 0, 0.08); /* subtle overlay */
+  border: 1px solid rgba(255, 76, 0, 0.2);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Content above blur circles */
+.date-select-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Title */
+.date-select-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+/* Controls wrapper */
+.date-select-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Chevron buttons */
+.chevron-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  transition: transform 0.15s ease;
+}
+
+.chevron-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Date buttons wrapper: scrollable horizontally */
+.date-buttons-wrapper {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scrollbar-width: none; /* hide scrollbar for Firefox */
+  -ms-overflow-style: none;  /* hide scrollbar for IE 10+ */
+}
+
+.date-buttons-wrapper::-webkit-scrollbar {
+  display: none; /* hide scrollbar for Chrome, Safari */
+}
+
+/* Individual date button */
+.date-btn {
+  flex: 0 0 auto; /* prevent shrinking in horizontal scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.1s ease;
+}
+
+.date-btn:hover {
+  background-color: #ff4c00;
+  transform: scale(1.05);
+}
+
+/* Book Now button */
+.book-btn {
+  background-color: #ff4c00;
+  color: #fff;
+  padding: 10px 36px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
+  align-self: flex-start;
+  margin-top: 20px;
+}
+
+.book-btn:hover {
+  background-color: rgba(255, 76, 0, 0.9);
+}
+
+.book-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  .date-select-container {
+    padding: 24px;
+  }
+
+  .date-btn {
+    width: 50px;
+    height: 50px;
+    font-size: 13px;
+  }
+
+  .date-select-title {
+    font-size: 18px;
+  }
+}

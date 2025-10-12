@@ -1,76 +1,105 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import './MovieDetail.css'
-
-const dummyMovieData = [
-  {
-    _id: "1",
-    title: "Inception",
-    poster_path: "https://m.media-amazon.com/images/I/51s+zU1zKRL._AC_.jpg", // ✅ Real poster image
-    vote_average: 8.8,
-    overview: "A mind-bending thriller by Christopher Nolan.",
-    runtime: 148,
-    genres: [{ name: "Sci-Fi" }, { name: "Thriller" }],
-    release_date: "2010-07-16"
-  }
-]
-
-
-const dummyDateTimeData = ["2025-10-11T18:00", "2025-10-12T20:00"]
-
-const timeFormat = (minutes) => {
-  const hrs = Math.floor(minutes / 60)
-  const mins = minutes % 60
-  return `${hrs}h ${mins}m`
-}
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import './MovieDetail.css';
+import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
+import isoTimeFormat from '../lib/ISOTIMEFORMAT';
+import { Heart, PlayCircleIcon, StarIcon } from 'lucide-react';
+import DateSelect from '../Component/DateSelect';
+import MovieCard from '../Component/MovieCard';
+import Loading from '../Component/Loading'; // import the spinner
 
 const MovieDetail = () => {
-  const { id } = useParams()
-  const [shows, setShow] = useState(null)
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [showData, setShowData] = useState(null);
 
   useEffect(() => {
-    console.log("Route param id:", id)
-    const show = dummyMovieData.find(movie => movie._id === id)
-    console.log("Matched movie:", show)
+    const show = dummyShowsData.find(movie => movie._id === id);
     if (show) {
-      setShow({
+      setShowData({
         movie: show,
         dateTime: dummyDateTimeData
-      })
-    } else {
-      console.warn("No movie found for id:", id)
+      });
     }
-  }, [id])
+  }, [id]);
 
-  return shows ? (
-    <div className="movie-detail-container">
-      <div className="movie-detail-wrapper">
+  if (!showData) {
+    // Mount the Loading spinner while fetching data
+    return <Loading />;
+  }
+
+  return (
+    <section className="detail-section">
+      <div className="detail-content">
         <img
-          src={shows.movie.poster_path}
-          alt={shows.movie.title}
-          className="movie-poster"
+          src={showData.movie.poster_path}
+          alt={showData.movie.title}
+          className="detail-poster"
         />
 
-        <div className="movie-info">
-          <div className="blur-circle" />
-          <p className="movie-language">ENGLISH</p>
-          <h1 className="movie-title">{shows.movie.title}</h1>
-          <div className="movie-rating">
-            <span className="star-icon">★</span>
-            {shows.movie.vote_average.toFixed(1)} User Rating
-          </div>
-          <p className="movie-overview">{shows.movie.overview}</p>
-          <p className="movie-meta">
-            {timeFormat(shows.movie.runtime)} · {shows.movie.genres.map(g => g.name).join(", ")} · {shows.movie.release_date.split("-")[0]}
+        <div className="detail-info">
+          <div className="detail-glow" />
+          <p className="detail-lang">
+            {showData.movie.original_language?.toUpperCase() || 'ENGLISH'}
           </p>
+          <h1 className="detail-title">{showData.movie.title}</h1>
+
+          <div className="detail-rating">
+            <StarIcon className="star-icon"/>
+            {showData.movie.vote_average?.toFixed(1)} User Rating
+          </div>
+
+          <p className="detail-overview">{showData.movie.overview}</p>
+
+          <p className="detail-meta">
+            {isoTimeFormat(showData.movie.runtime)} ·{' '}
+            {showData.movie.genres?.map(g => g.name).join(', ')} ·{' '}
+            {showData.movie.release_date?.split('-')[0]}
+          </p>
+
+          <div className="detail-buttons">
+            <button className="button-trailer">
+              <PlayCircleIcon className="icon"/>
+              Watch Trailer
+            </button>
+
+            <a href="#dateSelect" className="button-ticket">
+              Buy Ticket
+            </a>
+
+            <button className="button-heart">
+              <Heart className="icon"/>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="loading">
-      {id ? `No movie found for ID ${id}` : "Loading..."}
-    </div>
-  )
-}
 
-export default MovieDetail
+      <p className="cast-title">Your Favorite Cast</p>
+      <div className="cast-list">
+        {showData.movie.casts?.slice(0, 12).map((cast, index) => (
+          <div key={index} className="cast-item">
+            <img src={cast.profile_path} alt={cast.name} className="cast-img"/>
+            <p className="cast-name">{cast.name}</p>
+          </div>
+        ))}
+      </div>
+
+      <DateSelect dateTime={showData.dateTime} id={id} />
+
+      <p className="recommend-title">You May Also Like</p>
+      <div className="recommend-list">
+        {dummyShowsData.slice(0,4).map((movie,index)=>(
+          <MovieCard key={index} movie={movie}/>
+        ))}
+      </div>
+
+      <div className="show-more-wrapper">
+        <button onClick={()=> {navigate('/movies'); scrollTo(0,0)}} className="show-more-btn">
+          Show more
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default MovieDetail;
