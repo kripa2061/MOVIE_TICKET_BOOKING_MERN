@@ -34,7 +34,7 @@ const Footer = () => {
   
   </div>
     <div class="footer-bottom">
-    <p>Copyright 2025 © QuickShow. All Right Reserved.</p>
+    <p>Copyright {new Date().getFullYear()} © QuickShow. All Right Reserved.</p>
   </div>
 </footer>
 
