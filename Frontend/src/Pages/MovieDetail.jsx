@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './MovieDetail.css';
 import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
 import isoTimeFormat from '../lib/ISOTIMEFORMAT';
@@ -12,7 +12,7 @@ const MovieDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [showData, setShowData] = useState(null);
-  const [trailerOpen, setTrailerOpen] = useState(false); // state for modal
+  const [trailerOpen, setTrailerOpen] = useState(false);
 
   useEffect(() => {
     const show = dummyShowsData.find(movie => movie._id === id);
@@ -26,45 +26,49 @@ const MovieDetail = () => {
 
   if (!showData) return <Loading />;
 
+  const { movie, dateTime } = showData;
+
   return (
     <section className="detail-section">
-      {/* Movie Content */}
       <div className="detail-content">
         <img
-          src={showData.movie.poster_path}
-          alt={showData.movie.title}
+          src={movie.poster_path}
+          alt={movie.title}
           className="detail-poster"
         />
 
         <div className="detail-info">
           <div className="detail-glow" />
           <p className="detail-lang">
-            {showData.movie.original_language?.toUpperCase() || 'ENGLISH'}
+            {movie.original_language?.toUpperCase() || 'ENGLISH'}
           </p>
-          <h1 className="detail-title">{showData.movie.title}</h1>
+          <h1 className="detail-title">{movie.title}</h1>
 
           <div className="detail-rating">
             <StarIcon className="star-icon"/>
-            {showData.movie.vote_average?.toFixed(1)} User Rating
+            {movie.vote_average?.toFixed(1)} User Rating
           </div>
 
-          <p className="detail-overview">{showData.movie.overview}</p>
+          <p className="detail-overview">{movie.overview}</p>
 
           <p className="detail-meta">
-            {isoTimeFormat(showData.movie.runtime)} ·{' '}
-            {showData.movie.genres?.map(g => g.name).join(', ')} ·{' '}
-            {showData.movie.release_date?.split('-')[0]}
+            {isoTimeFormat(movie.runtime)} · {movie.genres?.map(g => g.name).join(', ')} · {movie.release_date?.split('-')[0]}
           </p>
 
           <div className="detail-buttons">
-            {/* Watch Trailer Button */}
-            <button 
-              className="button-trailer"
-              onClick={() => setTrailerOpen(true)}
-            >
-              <PlayCircleIcon className="icon"/>
-              Watch Trailer
-            </button>
+            {movie.trailer ? (
+              <button 
+                className="button-trailer"
+                onClick={() => setTrailerOpen(true)}
+              >
+                <PlayCircleIcon className="icon"/>
+                Watch Trailer
+              </button>
+            ) : (
+              <button className="button-trailer disabled" disabled>
+                Trailer Not Available
+              </button>
+            )}
 
             <a href="#dateSelect" className="button-ticket">
               Buy Ticket
@@ -77,10 +81,9 @@ const MovieDetail = () => {
         </div>
       </div>
 
-      {/* Cast Section */}
       <p className="cast-title">Your Favorite Cast</p>
       <div className="cast-list">
-        {showData.movie.casts?.slice(0, 12).map((cast, index) => (
+        {movie.casts?.slice(0, 12).map((cast, index) => (
           <div key={index} className="cast-item">
             <img src={cast.profile_path} alt={cast.name} className="cast-img"/>
             <p className="cast-name">{cast.name}</p>
@@ -88,9 +91,8 @@ const MovieDetail = () => {
         ))}
       </div>
 
-      <DateSelect dateTime={showData.dateTime} id={id} />
+      <DateSelect dateTime={dateTime} id={id} />
 
-      {/* Recommendations */}
       <p className="recommend-title">You May Also Like</p>
       <div className="recommend-list">
         {dummyShowsData.slice(0,4).map((movie,index)=>(
@@ -104,16 +106,15 @@ const MovieDetail = () => {
         </button>
       </div>
 
-      {/* Trailer Modal */}
-      {trailerOpen && (
+      {trailerOpen && movie.trailer && (
         <div className="trailer-modal">
           <div className="trailer-content">
             <button className="close-btn" onClick={() => setTrailerOpen(false)}>
               <X size={24}/>
             </button>
             <iframe 
-              src={showData.movie.trailer}
-              title="Trailer"
+              src={movie.trailer}
+              title={`${movie.title} Trailer`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

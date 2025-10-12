@@ -76,7 +76,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Fantasy" }, { name: "Adventure" }],
     overview: "A queen sends the powerful and feared sorceress Gray Alys to the ghostly wilderness...",
     release_date: "2025-02-27",
-    trailer: "https://www.youtube.com/embed/WpW36ldAqnM",
+    trailer: "https://www.youtube.com/embed/CMyrp5Vk3mU?si=7tbnDEF4ETs7q1X6",
     casts: dummyCastsData
   },
   {
@@ -89,7 +89,7 @@ export const dummyShowsData = [
     genres: [{ name: "Comedy" }, { name: "Drama" }],
     overview: "The latest installment in the Chhakka Panja series...",
     release_date: "2025-10-20",
-    trailer: "https://www.youtube.com/embed/-sAOWhvheK8",
+    trailer: "https://www.youtube.com/embed/_hBsVHlNOtA",
     casts: [
       { name: "Deepak Raj Giri", role: "Mundu" },
       { name: "Jeetu Nepal", role: "Supporting Role" },
@@ -106,7 +106,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Thriller" }, { name: "Crime" }],
     overview: "In this high-octane spy thriller, Hrithik Roshan reprises his role as Kabir...",
     release_date: "2025-08-14",
-    trailer: "https://www.youtube.com/embed/1pHDWnXmK7Y",
+    trailer: "https://www.youtube.com/embed/mjBym9uKth4?si=kcYzgcfWdyF0Hhq8",
     casts: [
       { name: "Hrithik Roshan", role: "Kabir" },
       { name: "Jr NTR", role: "Agent Vikram" },
@@ -123,7 +123,7 @@ export const dummyShowsData = [
     genres: [{ name: "Horror" }, { name: "Mystery" }],
     overview: "One year after her sister Melanie mysteriously disappeared...",
     release_date: "2025-04-23",
-    trailer: "https://www.youtube.com/embed/mjBym9uKth4",
+    trailer: "https://www.youtube.com/embed/2b3vBaINZ7w?si=ynFhrzlcSZ7PVCJS",
     casts: dummyCastsData
   },
   {
@@ -136,7 +136,7 @@ export const dummyShowsData = [
     genres: [{ name: "Family" }, { name: "Comedy" }, { name: "Science Fiction" }],
     overview: "The wildly funny and touching story of a lonely Hawaiian girl...",
     release_date: "2025-05-17",
-    trailer: "https://www.youtube.com/embed/umiKiW4En9g",
+    trailer: "https://www.youtube.com/embed/VWqJifMMgZE?si=STxT7eXCgW1cmyqJ",
     casts: dummyCastsData
   },
   {
@@ -149,7 +149,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Crime" }, { name: "Thriller" }],
     overview: "When a drug heist swerves lethally out of control...",
     release_date: "2025-04-25",
-    trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
+    trailer: "https://www.youtube.com/embed/6txjTWLoSc8?si=742XRtyEHbv0j47_" ,
     casts: dummyCastsData
   },
   {
@@ -162,7 +162,7 @@ export const dummyShowsData = [
     genres: [{ name: "Family" }, { name: "Comedy" }, { name: "Adventure" }, { name: "Fantasy" }],
     overview: "Four misfits find themselves struggling with ordinary problems...",
     release_date: "2025-03-31",
-    trailer: "https://www.youtube.com/embed/1pHDWnXmK7Y",
+    trailer: "https://www.youtube.com/embed/wJO_vIDZn-I?si=htrSi4YE7-zupido",
     casts: dummyCastsData
   },
   {
@@ -175,7 +175,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Adventure" }, { name: "Thriller" }],
     overview: "Ethan Hunt and team continue their search for the terrifying AI...",
     release_date: "2025-05-17",
-    trailer: "https://www.youtube.com/embed/-sAOWhvheK8",
+    trailer: "https://www.youtube.com/embed/fsQgc9pCyDU?si=YhUnu59waxaZPDv5" ,
     casts: dummyCastsData
   },
   {
@@ -188,7 +188,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Science Fiction" }, { name: "Adventure" }],
     overview: "After finding themselves ensnared in a death trap...",
     release_date: "2025-04-30",
-    trailer: "https://www.youtube.com/embed/mjBym9uKth4",
+    trailer:"https://www.youtube.com/embed/hUUszE29jS0?si=1rH_J4A329OU5D4N" ,
     casts: dummyCastsData
   },
   {
@@ -201,7 +201,7 @@ export const dummyShowsData = [
     genres: [{ name: "Adventure" }, { name: "Fantasy" }],
     overview: "A young archaeologist discovers a hidden civilization...",
     release_date: "2025-07-04",
-    trailer: "https://www.youtube.com/embed/1pHDWnXmK7Y",
+    trailer: "https://www.youtube.com/embed/RQinquBq338?si=t-cjYp_x6PdWP69f" ,
     casts: dummyCastsData
   },
   {
@@ -214,7 +214,7 @@ export const dummyShowsData = [
     genres: [{ name: "Action" }, { name: "Science Fiction" }],
     overview: "In a futuristic Tokyo, street racers battle for control of a city's underground AI traffic system...",
     release_date: "2025-08-14",
-    trailer: "https://www.youtube.com/embed/YoHD9XEInc0",
+    trailer: "https://www.youtube.com/embed/YhJ-pa9V7R4?si=7MICUCozU2GwpoT6",
     casts: dummyCastsData
   }
 ];

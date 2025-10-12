@@ -22,7 +22,7 @@ const SeatLayout = () => {
     ['I', 'J']
   ];
 
-  const getShow = async () => {
+  useEffect(() => {
     const showData = dummyShowsData.find(show => show._id === id);
     if (showData) {
       setShow({
@@ -30,10 +30,6 @@ const SeatLayout = () => {
         dateTime: dummyDateTimeData
       });
     }
-  };
-
-  useEffect(() => {
-    getShow();
   }, [id]);
 
   const handleSeatClick = (seatId) => {
@@ -60,12 +56,7 @@ const SeatLayout = () => {
     }
 
     navigate('/mybooking', {
-      state: {
-        selectedSeats,
-        selectedTime,
-        movie: show.movie,
-        date
-      }
+      state: { selectedSeats, selectedTime, movie: show.movie, date }
     });
     window.scrollTo(0, 0);
   };
@@ -75,14 +66,12 @@ const SeatLayout = () => {
       {show ? (
         <div className="layout-container">
 
-          {/* Blur Background */}
           <div className="blur-background">
             <BlurCircle top="-150px" left="-150px" size="400px" blur="150px" />
             <BlurCircle bottom="-200px" right="-200px" size="500px" blur="200px" />
             <BlurCircle top="50%" left="50%" size="600px" blur="180px" />
           </div>
 
-          {/* Time Section */}
           <div className="time-section">
             <p className="timing-header">Available Timings</p>
             <div className="available-time">
@@ -99,11 +88,10 @@ const SeatLayout = () => {
             </div>
           </div>
 
-          {/* Seats Section */}
           <div className="seats-section">
             <p className="seat-header">Select your seat</p>
             <img src={assets.screenImage} alt="Screen" className="screen-image" />
-            <p className='screen-side'>SCREEN SIDE</p>
+            <p className="screen-side">SCREEN SIDE</p>
 
             <div className="seat-groups">
               {groupRow.map((group, index) => {
@@ -111,9 +99,7 @@ const SeatLayout = () => {
                 return (
                   <div
                     key={index}
-                    className={`seat-row-group 
-                      ${index === 0 ? 'front-row-group' : ''} 
-                      ${isLastTwo ? 'last-two-rows-group' : ''}`}
+                    className={`seat-row-group ${index === 0 ? 'front-row-group' : ''} ${isLastTwo ? 'last-two-rows-group' : ''}`}
                   >
                     {group.map(row => (
                       <div
@@ -140,13 +126,13 @@ const SeatLayout = () => {
             </div>
           </div>
 
-          {/* Checkout */}
           <div className="checkout-payment">
-            <button className='payment-button' onClick={handleProceedToCheckout}>
+            <button className="payment-button" onClick={handleProceedToCheckout}>
               Proceed to Check Out
             </button>
-            <ArrowRight className='arrow-right' />
+            <ArrowRight className="arrow-right" />
           </div>
+
         </div>
       ) : (
         <div className="loader-container">
