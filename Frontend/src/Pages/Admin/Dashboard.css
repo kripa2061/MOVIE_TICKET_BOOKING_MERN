@@ -1,14 +1,33 @@
-.dashboard-cards {
+.adm-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  color: #fff;
+}
+
+.adm-dashboard {
+  position: relative;
+  padding: 2rem 4rem;
+  color: #fff;
+}
+
+.adm-dashboard-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.adm-stats-container {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
 }
 
-.card {
+.adm-stat-box {
   background: #73222238;
   border: 1px solid rgba(84, 42, 42, 0.64);
-  color: hsl(0, 0%, 100%);
-  padding: 15px 20px; 
+  color: #fff;
+  padding: 15px 20px;
   border-radius: 10px;
   min-width: 180px;
   flex: 1 1 180px;
@@ -16,78 +35,78 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-  position: relative;
-  z-index: 1;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   height: 90px;
 }
 
-.card:hover {
+.adm-stat-box:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 25px rgba(0,0,0,0.2);
 }
 
-.card-text {
+.adm-stat-text {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.card-value {
+.adm-stat-value {
   font-size: 16px;
   font-weight: 700;
   margin: 0;
 }
 
-.card-title {
+.adm-stat-title {
   font-size: 17px;
   font-weight: 500;
   margin: 6px 4px 8px 0;
 }
 
-.card-icon {
+.adm-stat-icon {
   height: 40px;
   width: 35px;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
   padding: 5px;
 }
-.active-shows {
+
+.adm-section-title {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.adm-active-shows {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
   gap: 2rem;
   justify-items: center;
   align-items: stretch;
-  padding: 2rem 4rem;
-  box-sizing: border-box;
-  width: 100%;
+  padding: 2rem 0;
 }
 
-.show-card {
+.adm-show-box {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   padding: 14px;
   background: linear-gradient(145deg, #1b1b1b, #2d2d2d);
   border-radius: 16px;
   width: 264px;
   transition: all 0.3s ease;
-  font-family: 'Poppins', sans-serif;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   overflow: hidden;
   position: relative;
 }
 
-.show-card:hover {
+.adm-show-box:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.3);
 }
 
-.show-image {
+.adm-show-image {
   height: 208px;
   width: 100%;
   object-fit: cover;
@@ -95,12 +114,12 @@
   transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
-.show-card:hover .show-image {
+.adm-show-box:hover .adm-show-image {
   transform: scale(1.05);
   opacity: 0.95;
 }
 
-.show-title {
+.adm-show-title {
   font-weight: 600;
   margin-top: 10px;
   white-space: nowrap;
@@ -111,24 +130,24 @@
   transition: color 0.3s ease;
 }
 
-.show-card:hover .show-title {
+.adm-show-box:hover .adm-show-title {
   color: #e50914;
 }
 
-.show-price-rating {
+.adm-show-price-rating {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 6px;
 }
 
-.show-price {
+.adm-show-price {
   font-size: 0.9rem;
   font-weight: 500;
   color: #bbb;
 }
 
-.show-rating {
+.adm-show-rating {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -136,7 +155,7 @@
   color: white;
 }
 
-.show-star-icon {
+.adm-show-star-icon {
   width: 16px;
   height: 16px;
   color: gold;
@@ -144,13 +163,13 @@
   filter: drop-shadow(0 0 3px rgba(255, 204, 0, 0.6));
 }
 
-.show-date {
+.adm-show-date {
   font-size: 0.8rem;
   color: #ccc;
   margin-top: 8px;
 }
 
-.show-card::before {
+.adm-show-box::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -159,41 +178,38 @@
   transition: opacity 0.4s ease;
 }
 
-.show-card:hover::before {
+.adm-show-box:hover::before {
   opacity: 1;
 }
 
 @media (max-width: 1280px) {
-  .active-shows {
-    padding: 2rem 2rem;
+  .adm-active-shows {
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   }
 
-  .show-card {
+  .adm-show-box {
     width: 220px;
   }
 }
 
 @media (max-width: 768px) {
-  .active-shows {
+  .adm-active-shows {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 1.5rem;
-    padding: 1rem 1.5rem;
   }
 
-  .show-card {
+  .adm-show-box {
     width: 180px;
   }
 }
 
 @media (max-width: 480px) {
-  .active-shows {
+  .adm-active-shows {
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 1rem;
-    padding: 1rem;
   }
 
-  .show-card {
+  .adm-show-box {
     width: 140px;
   }
 }

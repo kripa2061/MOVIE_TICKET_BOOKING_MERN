@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { dummyBookingData } from '../../assets-3/assets';
 import './ListBooking.css'
+import { dateFormat } from '../../lib/DateFormat';
 
 const ListBooking = () => {
   const [booking, setBooking] = useState([]);
@@ -35,7 +36,7 @@ const ListBooking = () => {
             <tr key={item._id}>
               <td>{item.user.name}</td>
               <td>{item.show.movie.title}</td>
-              <td>{item.show.showDateTime}</td>
+              <td>{dateFormat(item.show.showDateTime)}</td>
               <td>{item.bookedSeats.join(', ')}</td>
               <td>{currency} {item.bookedSeats.length * item.show.showPrice} {item.show.currency || ''}</td>
             </tr>

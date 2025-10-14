@@ -5,7 +5,7 @@ import BlurCircle from '../../Component/BlurCircle';
 import './Dashboard.css';
 import { dateFormat } from '../../lib/DateFormat';
 
-const Layout = () => {
+const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
     totalBookings: 0,
     totalRevenue: 0,
@@ -24,7 +24,7 @@ const Layout = () => {
     fetchDashboardData();
   }, []);
 
-  const dashboardCards = [
+  const stats = [
     { title: "Total Booking", value: dashboardData.totalBookings, icon: ChartLineIcon },
     { title: "Total Revenue", value: dashboardData.totalRevenue, icon: CircleDollarSignIcon },
     { title: "Active Shows", value: dashboardData.activeShows.length, icon: PlayCircleIcon },
@@ -34,44 +34,45 @@ const Layout = () => {
   return (
     <>
       {loading ? (
-        <div className="loader-container">
+        <div className="adm-loader">
           <Loader />
         </div>
       ) : (
-        <div className="dashboard-container">
-          <h2>Admin Dashboard</h2>
+        <div className="adm-dashboard">
+          <h2 className="adm-dashboard-title">Admin Dashboard</h2>
 
-          {/* Blur circles */}
           <BlurCircle top="100px" left="100px" size="400px" blur="190px" />
           <BlurCircle top="50%" left="50%" size="600px" blur="500px" />
 
-          {/* Dashboard Cards */}
-          <div className="dashboard-cards">
-            {dashboardCards.map((card, index) => {
-              const CardIcon = card.icon;
+          <div className="adm-stats-container">
+            {stats.map((stat, idx) => {
+              const StatIcon = stat.icon;
               return (
-                <div key={index} className="card">
-                  <div className="card-text">
-                    <p className="card-value">{card.value}</p>
-                    <p className="card-title">{card.title}</p>
+                <div key={idx} className="adm-stat-box">
+                  <div className="adm-stat-text">
+                    <p className="adm-stat-value">{stat.value}</p>
+                    <p className="adm-stat-title">{stat.title}</p>
                   </div>
-                  <CardIcon className="card-icon" />
+                  <StatIcon className="adm-stat-icon" />
                 </div>
               )
             })}
           </div>
 
-          {/* Active Shows Section */}
-          <p>Active Shows</p>
-          <div className="active-shows">
+          <p className="adm-section-title">Active Shows</p>
+          <div className="adm-active-shows">
             {dashboardData.activeShows.map((show) => (
-              <div key={show._id} className="show-card">
-                <img src={show.movie.poster_path} alt={show.movie.title} />
-                <p>{show.movie.title}</p>
-                <p>{show.showPrice}</p>
-                <StarIcon  className='star-icon'/>
-                {show.movie.vote_average.toFixed(1)}
-                <p>{dateFormat(show.showDateTime)}</p>
+              <div key={show._id} className="adm-show-box">
+                <img src={show.movie.poster_path} alt={show.movie.title} className="adm-show-image"/>
+                <p className="adm-show-title">{show.movie.title}</p>
+                <div className="adm-show-price-rating">
+                  <p className="adm-show-price">{show.showPrice}</p>
+                  <div className="adm-show-rating">
+                    <StarIcon className="adm-show-star-icon"/>
+                    {show.movie.vote_average.toFixed(1)}
+                  </div>
+                </div>
+                <p className="adm-show-date">{dateFormat(show.showDateTime)}</p>
               </div>
             ))}
           </div>
@@ -81,4 +82,4 @@ const Layout = () => {
   )
 }
 
-export default Layout;
+export default Dashboard;

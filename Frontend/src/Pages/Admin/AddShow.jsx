@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { dummyShowsData } from '../../assets-3/assets';
-import { CheckCheck, CheckCircle, CheckIcon, CheckSquareIcon, DeleteIcon, Loader, StarIcon, VoteIcon } from 'lucide-react';
-import './AddShows.css'
+import { CheckIcon, DeleteIcon, Loader, StarIcon } from 'lucide-react';
+import './AddShows.css';
 import BlurCircle from '../../Component/BlurCircle';
+
 const AddShow = () => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
@@ -10,6 +11,7 @@ const AddShow = () => {
   const [dateTimeSelection, setDateTimeSelection] = useState({});
   const [dateTimeInput, setDateTimeInput] = useState("");
   const [showPrice, setShowPrice] = useState("");
+
   const handleDateandTime = () => {
     if (!dateTimeInput) return;
     const [date, time] = dateTimeInput.split("T");
@@ -22,6 +24,7 @@ const AddShow = () => {
       return prev;
     });
   }
+
   const handleRemoveTime = (date, time) => {
     setDateTimeSelection((prev) => {
       const updatedTimes = prev[date].filter((t) => t !== time);
@@ -32,9 +35,8 @@ const AddShow = () => {
       }
       return { ...prev, [date]: updatedTimes };
     });
-
-
   }
+
   const fetchNowPlaying = async () => {
     setNowPlayingMovies(dummyShowsData);
   };
@@ -44,91 +46,81 @@ const AddShow = () => {
   }, []);
 
   return (
-    <div className="add-show-container">
-         {/* Blur circles */}
-          <BlurCircle top="100px" left="100px" size="400px" blur="100px" />
-          <BlurCircle button="50%" left="50%" size="600px" blur="300px" />
-      <p>Select Movies</p>
+    <div className="adm-add-show">
+      <BlurCircle top="100px" left="100px" size="400px" blur="100px" />
+      <BlurCircle top="50%" left="50%" size="600px" blur="300px" />
+
+      <p className="adm-section-title">Select Movies</p>
+
       {nowPlayingMovies.length > 0 ? (
-
-        <div className="movie-list">
-
+        <div className="adm-movie-list">
           {nowPlayingMovies.map((item) => (
             <div
-              key={item.id}
-              className={`movie-card ${selectedMovie === item._id ? 'selected' : ''}`}
+              key={item._id}
+              className={`adm-movie-box ${selectedMovie === item._id ? 'adm-selected' : ''}`}
               onClick={() => setSelectedMovie(item._id)}
             >
-              <img src={item.poster_path} alt={item.title} className="movie-poster" />
-              <p className="movie-title">{item.title}</p>
-              <p className="movie-rating">
+              <img src={item.poster_path} alt={item.title} className="adm-movie-poster" />
+              <p className="adm-movie-title">{item.title}</p>
+              <p className="adm-movie-rating">
                 <StarIcon fill="gold" /> {item.vote_average}
               </p>
-              <p className="movie-votes">{item.vote_count} votes</p>
+              <p className="adm-movie-votes">{item.vote_count} votes</p>
 
-              {selectedMovie === item._id && (
-                <CheckIcon className="check-icon" />
-              )}
+              {selectedMovie === item._id && <CheckIcon className="adm-check-icon" />}
             </div>
           ))}
 
-
-       {/* Show Price */}
-
-  <div className="show-price">
-    <p>Show Price</p>
-    <input
-      type="text"
-      value={showPrice}
-      onChange={(e) => setShowPrice(e.target.value)}
-      placeholder="RS.  Enter Show Price "
-    />
-  </div>
-
-
-{/* Date & Time */}
-
-  <div className="show-date-time">
-    <input
-      type="datetime-local"
-      value={dateTimeInput}
-      onChange={(e) => setDateTimeInput(e.target.value)}
-      className="datetime-input"
-    />
-    <button onClick={handleDateandTime}>Add Time</button>
-  </div>
-
-
-{/* Selected Date & Time Display */}
-{Object.keys(dateTimeSelection).length > 0 && (
-  <div className="selected-date-time">
-    <p>Selected Date & Time:</p>
-    <ul className="selected-date-list">
-      {Object.entries(dateTimeSelection).map(([date, times]) => (
-        <li key={date} className="selected-date-item">
-          <div className="date-label">{date}</div>
-          <div className="time-list">
-            {times.map((time) => (
-              <div key={time} className="time-item">
-                <span>{time}</span>
-                <DeleteIcon
-                  className="delete-icon"
-                  onClick={() => handleRemoveTime(date, time)}
-                />
-              </div>
-            ))}
+          <div className="adm-show-price-box">
+            <p>Show Price</p>
+            <input
+              type="text"
+              value={showPrice}
+              onChange={(e) => setShowPrice(e.target.value)}
+              placeholder={`RS. Enter Show Price`}
+              className="adm-show-price-input"
+            />
           </div>
-          <button className="add-show-btn">Add Show</button>
-        </li>
-      ))}
-    </ul>
-  </div>
-)}
 
+          <div className="adm-show-datetime-box">
+            <input
+              type="datetime-local"
+              value={dateTimeInput}
+              onChange={(e) => setDateTimeInput(e.target.value)}
+              className="adm-datetime-input"
+            />
+            <button className="adm-add-time-btn" onClick={handleDateandTime}>Add Time</button>
+          </div>
 
+          {Object.keys(dateTimeSelection).length > 0 && (
+            <div className="adm-selected-datetime">
+              <p>Selected Date & Time:</p>
+              <ul className="adm-date-list">
+                {Object.entries(dateTimeSelection).map(([date, times]) => (
+                  <li key={date} className="adm-date-item">
+                    <div className="adm-date-label">{date}</div>
+                    <div className="adm-time-list">
+                      {times.map((time) => (
+                        <div key={time} className="adm-time-item">
+                          <span>{time}</span>
+                          <DeleteIcon
+                            className="adm-delete-icon"
+                            onClick={() => handleRemoveTime(date, time)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <button className="adm-add-show-btn">Add Show</button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       ) : (
-        <Loader />
+        <div className="adm-loader-box">
+          <Loader />
+        </div>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-.add-show-container {
+.adm-add-show {
   padding: 2rem;
   font-family: 'Poppins', sans-serif;
   color: #fff;
@@ -8,13 +8,13 @@
   position: relative;
 }
 
-.movie-list {
+.adm-movie-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
 
-.movie-card {
+.adm-movie-box {
   background: #1b1b1b;
   border-radius: 12px;
   width: 180px;
@@ -27,27 +27,27 @@
   align-items: center;
 }
 
-.movie-card:hover {
+.adm-movie-box:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 20px rgba(229, 9, 20, 0.3);
 }
 
-.movie-poster {
+.adm-movie-poster {
   width: 100%;
   height: 250px;
   object-fit: cover;
   border-bottom: 1px solid #333;
 }
 
-.movie-title {
+.adm-movie-title {
   font-weight: 600;
   margin: 8px 0 4px 0;
   text-align: center;
   font-size: 1rem;
 }
 
-.movie-rating,
-.movie-votes {
+.adm-movie-rating,
+.adm-movie-votes {
   font-size: 0.85rem;
   color: #ccc;
   display: flex;
@@ -56,7 +56,7 @@
   margin-bottom: 4px;
 }
 
-.check-icon {
+.adm-check-icon {
   position: absolute;
   top: 8px;
   right: 8px;
@@ -72,7 +72,7 @@
 }
 
 /* Show Price */
-.show-price {
+.adm-show-price-box {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -80,12 +80,12 @@
   margin-top: 1rem;
 }
 
-.show-price p {
+.adm-show-price-box p {
   font-weight: 500;
   color: #fff;
 }
 
-.show-price input {
+.adm-show-price-input {
   padding: 8px 10px;
   border-radius: 8px;
   border: 1px solid #444;
@@ -95,19 +95,19 @@
   transition: border 0.2s ease;
 }
 
-.show-price input:focus {
+.adm-show-price-input:focus {
   border: 1px solid #e50914;
 }
 
 /* Date & Time Input */
-.show-date-time {
+.adm-show-datetime-box {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-top: 0.5rem;
 }
 
-.show-date-time input.datetime-input {
+.adm-datetime-input {
   flex: 1;
   padding: 8px 10px;
   border-radius: 8px;
@@ -118,11 +118,11 @@
   transition: border 0.2s ease;
 }
 
-.show-date-time input.datetime-input:focus {
+.adm-datetime-input:focus {
   border: 1px solid #e50914;
 }
 
-.show-date-time button {
+.adm-add-time-btn {
   padding: 8px 12px;
   background: #e50914;
   color: #fff;
@@ -132,12 +132,12 @@
   transition: 0.2s ease;
 }
 
-.show-date-time button:hover {
+.adm-add-time-btn:hover {
   background: #b00610;
 }
 
 /* Selected Date & Time Display */
-.selected-date-time {
+.adm-selected-datetime {
   margin-top: 1rem;
   display: flex;
   flex-direction: column;
@@ -145,7 +145,7 @@
   max-width: 250px;
 }
 
-.selected-date-list {
+.adm-date-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -154,7 +154,7 @@
   gap: 0.5rem;
 }
 
-.selected-date-item {
+.adm-date-item {
   background: #2d2d2d;
   border-radius: 8px;
   padding: 8px;
@@ -163,18 +163,18 @@
   gap: 4px;
 }
 
-.date-label {
+.adm-date-label {
   font-weight: 600;
   color: #fff;
 }
 
-.time-list {
+.adm-time-list {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
 }
 
-.time-item {
+.adm-time-item {
   background: #1b1b1b;
   padding: 4px 8px;
   border-radius: 6px;
@@ -184,17 +184,17 @@
   color: #fff;
 }
 
-.delete-icon {
+.adm-delete-icon {
   cursor: pointer;
   color: #e50914;
   transition: color 0.2s ease;
 }
 
-.delete-icon:hover {
+.adm-delete-icon:hover {
   color: #ff4d4d;
 }
 
-.add-show-btn {
+.adm-add-show-btn {
   margin-top: 6px;
   padding: 6px 10px;
   background: #e50914;
@@ -205,12 +205,12 @@
   align-self: flex-start;
 }
 
-.add-show-btn:hover {
+.adm-add-show-btn:hover {
   background: #b00610;
 }
 
 /* Blur Circle Adjustments */
-.add-show-container BlurCircle {
+.adm-add-show BlurCircle {
   z-index: -1;
   position: absolute;
 }
