@@ -3,6 +3,7 @@ import { assets, dummyBookingData } from '../assets-3/assets';
 import { Loader } from 'lucide-react';
 import BlurCircle from '../Component/BlurCircle';
 import './MyBooking.css'
+import { dateFormat } from '../lib/DateFormat';
 
 const MyBooking = () => {
   const currency = import.meta.env.VITE_CURRENCY;
@@ -35,7 +36,7 @@ const MyBooking = () => {
                 <div className="mybooking-center">
                   <h3>{item.show.movie.title}</h3>
                   <p className="runtime">Runtime: {item.show.movie.runtime} mins</p>
-                  <p className="show-date">{new Date(item.show.showDateTime).toLocaleString()}</p>
+                  <p className="show-date">{dateFormat(item.show.showDateTime)}</p>
                 </div>
 
                 <div className="mybooking-right">

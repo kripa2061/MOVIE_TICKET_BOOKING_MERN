@@ -11,6 +11,11 @@ import MyBooking from './Pages/MyBooking'
 import { Toaster } from "react-hot-toast"
 import Login from './Pages/Login'
 import SSOCallback from './Pages/SSOCallback'
+import Layout from './Pages/Admin/Layout'
+import Dashboard from './Pages/Admin/Dashboard'
+import AddShow from './Pages/Admin/AddShow'
+import ListBooking from './Pages/Admin/ListBooking'
+import ListShows from './Pages/Admin/ListShows'
 
 const App = () => {
   const IsAdminRoutes = useLocation().pathname.startsWith("/admin")
@@ -29,6 +34,12 @@ const App = () => {
         <Route path="/movies/:id/:date" element={<SeatLayout />} />
         <Route path="/favorite" element={<Favorite />} />
         <Route path="/mybooking" element={<MyBooking />} />
+       <Route path="/admin" element={<Layout />}>
+    <Route index element={<Dashboard />} />
+    <Route path="add-show" element={<AddShow />} />
+    <Route path="list-booking" element={<ListBooking />} />
+    <Route path="list-show" element={<ListShows />} />
+  </Route>
       </Routes>
       {!IsAdminRoutes && <Footer />}
     </>

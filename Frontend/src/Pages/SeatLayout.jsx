@@ -126,14 +126,11 @@ const SeatLayout = () => {
             </div>
           </div>
 
-          <div className="checkout-payment">
-            <button className="payment-button" onClick={handleProceedToCheckout}>
-              Proceed to Check Out
-            </button>
-            <ArrowRight className="arrow-right" />
-          </div>
-
-        </div>
+         <button className="payment-button" onClick={handleProceedToCheckout}>
+  Proceed to Check Out
+</button>
+<ArrowRight className="arrow-right" />
+</div>
       ) : (
         <div className="loader-container">
           <Loader />

@@ -3,6 +3,7 @@ import { dummyShowsData } from '../assets-3/assets'
 import BlurCircle from '../Component/BlurCircle'
 import MovieCard from '../Component/MovieCard'
 import "./Movies.css"
+import { Loader } from 'lucide-react'
 
 const Movies = () => {
   return (
@@ -21,7 +22,7 @@ const Movies = () => {
         </div>
       ) : (
         <div className="movie-message">
-          <p>No movie available</p>
+          <Loader/>
         </div>
       )}
     </div>
