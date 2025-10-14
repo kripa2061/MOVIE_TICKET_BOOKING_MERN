@@ -1,23 +1,15 @@
-.adm-add-show {
-  padding: 2rem;
-  font-family: 'Poppins', sans-serif;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  position: relative;
-}
-
+/* Movie Card Container */
 .adm-movie-list {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
 }
 
+/* Individual Movie Box */
 .adm-movie-box {
   background: #1b1b1b;
   border-radius: 12px;
-  width: 180px;
+  width: 220px; /* made wider */
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -25,6 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 1rem; /* space for price & datetime */
 }
 
 .adm-movie-box:hover {
@@ -45,7 +38,11 @@
   text-align: center;
   font-size: 1rem;
 }
-
+.vote-vote-count{
+  display: flex;
+  gap: 20px;
+  text-align: justify;
+}
 .adm-movie-rating,
 .adm-movie-votes {
   font-size: 0.85rem;
@@ -71,42 +68,53 @@
   justify-content: center;
 }
 
-/* Show Price */
-.adm-show-price-box {
+/* Show Price & Date & Time inside card */
+.adm-show-price-box,
+.adm-show-datetime-box {
+  width: 90%;
+  margin-top: 8px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  max-width: 220px;
-  margin-top: 1rem;
+  gap: 6px;
 }
-
-.adm-show-price-box p {
-  font-weight: 500;
-  color: #fff;
+.price-date{
+  font-family: "poppins";
+  color: grey;
+ 
 }
-
-.adm-show-price-input {
-  padding: 8px 10px;
-  border-radius: 8px;
+.adm-show-price-input,
+.adm-datetime-input {
+  width: 50%;
+  height: 40px;
+  padding: 6px 8px;
+  border-radius: 6px;
   border: 1px solid #444;
   outline: none;
   background: #2d2d2d;
   color: #fff;
-  transition: border 0.2s ease;
 }
 
-.adm-show-price-input:focus {
+.adm-show-price-input:focus,
+.adm-datetime-input:focus {
   border: 1px solid #e50914;
 }
 
-/* Date & Time Input */
-.adm-show-datetime-box {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 0.5rem;
+.adm-add-time-btn {
+  width: 20%;
+  padding: 6px 8px;
+  background: #e50914;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
+.adm-add-time-btn:hover,
+.adm-add-show-btn:hover {
+  background: #b00610;
+}
+/* Date & Time Input */
 .adm-datetime-input {
   flex: 1;
   padding: 8px 10px;
@@ -114,103 +122,38 @@
   border: 1px solid #444;
   outline: none;
   background: #2d2d2d;
-  color: #fff;
+  color: #787676;
   transition: border 0.2s ease;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24"><path d="M7 10h2v2H7v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zm-8 4h2v2H7v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z"/><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px 20px;
 }
-
-.adm-datetime-input:focus {
-  border: 1px solid #e50914;
-}
-
-.adm-add-time-btn {
-  padding: 8px 12px;
+.adm-add-show-btn{
+  width: 100%;
+  padding: 6px 8px;
   background: #e50914;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.adm-add-time-btn:hover {
-  background: #b00610;
-}
-
-/* Selected Date & Time Display */
-.adm-selected-datetime {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 250px;
-}
-
-.adm-date-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.adm-date-item {
-  background: #2d2d2d;
-  border-radius: 8px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.adm-date-label {
-  font-weight: 600;
-  color: #fff;
-}
-
-.adm-time-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.adm-time-item {
-  background: #1b1b1b;
-  padding: 4px 8px;
   border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: #fff;
-}
+  cursor: pointer;
+  margin-top: 20px;
 
+}
 .adm-delete-icon {
+  display: inline-block;
   cursor: pointer;
   color: #e50914;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
+  margin-left: 6px;
+  vertical-align: middle;
+
 }
 
 .adm-delete-icon:hover {
   color: #ff4d4d;
+  transform: scale(1.2);
 }
 
-.adm-add-show-btn {
-  margin-top: 6px;
-  padding: 6px 10px;
-  background: #e50914;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  align-self: flex-start;
-}
 
-.adm-add-show-btn:hover {
-  background: #b00610;
-}
 
-/* Blur Circle Adjustments */
-.adm-add-show BlurCircle {
-  z-index: -1;
-  position: absolute;
-}

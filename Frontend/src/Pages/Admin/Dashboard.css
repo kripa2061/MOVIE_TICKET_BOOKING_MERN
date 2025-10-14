@@ -141,10 +141,11 @@
   margin-top: 6px;
 }
 
-.adm-show-price {
+.adm-show-price-box {
   font-size: 0.9rem;
   font-weight: 500;
   color: #bbb;
+ 
 }
 
 .adm-show-rating {

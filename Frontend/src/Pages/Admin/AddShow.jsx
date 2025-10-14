@@ -3,6 +3,7 @@ import { dummyShowsData } from '../../assets-3/assets';
 import { CheckIcon, DeleteIcon, Loader, StarIcon } from 'lucide-react';
 import './AddShows.css';
 import BlurCircle from '../../Component/BlurCircle';
+import { kconverter } from '../../lib/KFormater';
 
 const AddShow = () => {
   const currency = import.meta.env.VITE_CURRENCY;
@@ -62,17 +63,19 @@ const AddShow = () => {
             >
               <img src={item.poster_path} alt={item.title} className="adm-movie-poster" />
               <p className="adm-movie-title">{item.title}</p>
+              <div className="vote-vote-count">
               <p className="adm-movie-rating">
-                <StarIcon fill="gold" /> {item.vote_average}
+                    <StarIcon className="star-icon" />
+                      {item.vote_average.toFixed(1)}
               </p>
-              <p className="adm-movie-votes">{item.vote_count} votes</p>
-
+              <p className="adm-movie-votes">{kconverter(item.vote_count)} votes</p>
+</div>
               {selectedMovie === item._id && <CheckIcon className="adm-check-icon" />}
             </div>
           ))}
 
           <div className="adm-show-price-box">
-            <p>Show Price</p>
+            <p className='price-date'>Add Price</p>
             <input
               type="text"
               value={showPrice}
@@ -83,6 +86,7 @@ const AddShow = () => {
           </div>
 
           <div className="adm-show-datetime-box">
+            <p className='price-date'>Add Price</p>
             <input
               type="datetime-local"
               value={dateTimeInput}
