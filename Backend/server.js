@@ -5,6 +5,9 @@ require("dotenv").config();
 const connectDB = require("./connection");
 const authRouter = require("./Routes/authRoutes");
 const userRouter = require("./Routes/userRoutes");
+const { clerkMiddleware } = require("@clerk/express");
+const { serve } = require("inngest/express");
+const { inngest, functions } = require("./Inngest/Index");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,13 +17,11 @@ const allowedOrigins = ['http://localhost:5173'];
 app.use(cookieParser()); 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
-
+app.use(clerkMiddleware())
 app.get("/", (req, res) => {
   res.send("Server running and database connected!");
 });
-
-app.use("/api/auth", authRouter);
-app.use("/api/user", userRouter);
+app.use("/api/inngest", serve({ client: inngest, functions }));
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
