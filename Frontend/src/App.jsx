@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Toaster } from 'react-hot-toast'
 
@@ -20,14 +20,15 @@ import ListBooking from './Pages/Admin/ListBooking'
 import ListShows from './Pages/Admin/ListShows'
 
 const App = () => {
+  const[data,setData]=useState(null);
   return (
     <>
       <Toaster />
       <Routes>
         {/* USER ROUTES WITH NAVBAR & FOOTER */}
-        <Route element={<UserLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+        <Route element={<UserLayout data={data} setData={setData} />}>
+          <Route path="/" element={<Home data={data} setData={setData} />}  />
+          <Route path="/login" element={<Login setData={setData} />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/movies/:id" element={<MovieDetail />} />
           <Route path="/movies/:id/:date" element={<SeatLayout />} />

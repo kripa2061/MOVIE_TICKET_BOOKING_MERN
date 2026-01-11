@@ -11,17 +11,18 @@ const { inngest, functions } = require("./Inngest/Index");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+connectDB(); 
 const allowedOrigins = ['http://localhost:5173'];
 
 app.use(cookieParser()); 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
-app.use(clerkMiddleware())
+app.use('/api/user',userRouter);
+
 app.get("/", (req, res) => {
   res.send("Server running and database connected!");
 });
-app.use("/api/inngest", serve({ client: inngest, functions }));
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

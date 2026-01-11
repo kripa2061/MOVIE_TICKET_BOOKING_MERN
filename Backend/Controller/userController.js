@@ -1,23 +1,59 @@
-const userModel = require("../Model/userModel");
+const userModel=require("../Model/userModel")
+const bcrypt=require("bcrypt");
+const jwt = require("jsonwebtoken");
+const validator=require("validator");
+const userRegister=async(req,res)=>{
+const{name,email,password}=req.body;
+if(!name||!email||!password){
+    return res.json({success:false,message:"Missing Credential"})
+}
+try {
+    const existingUser=await userModel.findOne({email});
+    if(existingUser){
+        return res.json({success:false,message:"User already exist"})
+    }
+    if(!validator.isEmail(email)){
+           return res.json({success:false,message:"Enter valid email"})
+    }
+    if(password.length<8){
+           return res.json({success:false,message:"password must be 8 letter"})
+    }
+    const hashedPassword=await bcrypt.hash(password,10);
+    const user=new userModel({
+        name:name,
+        email:email,
+        password:hashedPassword
+    })
+    await user.save();
+    const token=jwt.sign({id:user._id},process.env.JWT_SECRET,{expiresIn:'7d'});
+        if(token){
+            return res.json({success:true,data:token})
+        }
+} catch (error) {
+     return res.json({success:false,message:error.message})
+}
+}
+const Login=async(req,res)=>{
+    const {email,password}=req.body;
+    if(!email||!password){
+            return res.json({success:false,message:"Missing Credential"})
+    }
+    try {
+        const fetchUser=await userModel.findOne({email});
+        if(!fetchUser){
+               return res.json({success:false,message:"User not available"})
+        }
+        const checkPassword=await bcrypt.compare(password,fetchUser.password);
+        if(!checkPassword){
+             return res.json({success:false,message:"password does not match"})
+        }
+        const token=jwt.sign({id:fetchUser._id},process.env.JWT_SECRET,{expiresIn:'7d'});
+        if(token){
+            return res.json({success:true,data:token})
+        }
+    } catch (error) {
+              return res.json({success:false,message:error.message})
+    }
+}
 
-const getuserData=async(req,res)=>{
-    try{
-            const userId = req.userId;
-  const user=await userModel.findById(userId);
-  if(!user){
-     return res.json({success:false,message:"user not available"})
-  }
-  return res.json({
-    success:true,
-    userData:{
-name:user.name,
-isAccountVerify:user.isAccountVerify
-    }
-  })
-    }catch(err){
-        return res.json({success:false,message:err.message})
-    }
-}
-module.exports={
-    getuserData,
-}
+module.exports={userRegister,Login}

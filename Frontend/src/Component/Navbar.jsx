@@ -4,11 +4,10 @@ import { assets } from '../assets-3/assets'
 import { Menu, Search, TicketPlus, X } from 'lucide-react'
 import "./Navbar.css";
 import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
-const Navbar = () => {
+const Navbar = ({data,setdata}) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate()
-  const { user } = useUser()
-  const { openSignIn } = useClerk()
+
   return (
     <>
       {isOpen && <div className="overlay" onClick={() => setIsOpen(false)}></div>}
@@ -29,20 +28,15 @@ const Navbar = () => {
 
         <div className="navbar-actions">
           <Search className="navbar-icon" />
-          {!user ?
-            <button className="navbar-button" onClick={openSignIn}>Login</button>
-            :
-            <UserButton>
-              <UserButton.MenuItems>
-                <UserButton.Action
-                  label="My Bookings"
-                  labelIcon={<TicketPlus />}
-                 width={0}
-                  onClick={() => navigate("/mybooking")}
-                />
-
-              </UserButton.MenuItems>
-            </UserButton>
+          {!data?(
+            <div onClick={()=>{navigate("/login")}}>
+              <button>Login</button>
+               </div>
+          ):(
+            <div> 
+              {data.name[0].toUpperCase()}
+            </div>
+          )
           }
 
           {!isOpen && <Menu className="navbar-icon menu-icon" onClick={() => setIsOpen(true)} />}

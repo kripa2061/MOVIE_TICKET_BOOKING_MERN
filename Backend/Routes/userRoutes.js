@@ -1,8 +1,7 @@
-const express = require("express");
+const express=require("express");
+const { userRegister, Login } = require("../Controller/userController");
+const userRouter=express.Router();
 
-const { getuserData } = require("../Controller/userController");
-const userAuth = require("../Middleware/userAuth");
-
-const router = express.Router();
-router.get('/data',userAuth ,getuserData);
-module.exports = router;
+userRouter.post("/register",userRegister);
+userRouter.post("/login",Login);
+module.exports=userRouter;

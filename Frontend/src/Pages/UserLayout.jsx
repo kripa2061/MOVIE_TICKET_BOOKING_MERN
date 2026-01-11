@@ -6,10 +6,10 @@ import { Outlet } from 'react-router-dom'
 
 
 
-const UserLayout = ({ children }) => {
+const UserLayout = ({ data ,setData}) => {
   return (
     <>
-      <Navbar />
+      <Navbar data={data} setData={setData}/>
      <Outlet />
       <Footer />
     </>
