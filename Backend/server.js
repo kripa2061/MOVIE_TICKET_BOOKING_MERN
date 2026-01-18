@@ -10,6 +10,8 @@ const { serve } = require("inngest/express");
 const { inngest, functions } = require("./Inngest/Index");
 
 const { movieRoute } = require("./Routes/MovieRoute");
+const BookingModel = require("./Model/BookingModel");
+const { bookingRoute } = require("./Routes/bookingRoute");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,7 +26,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use('/api/user',userRouter);
 app.use('/api/movie',movieRoute)
-
+app.use('/api/booking',bookingRoute)
 app.get("/", (req, res) => {
   res.send("Server running and database connected!");
 });

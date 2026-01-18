@@ -41,7 +41,7 @@ const App = () => {
           <Route path="/login" element={<Login setData={setData} />} />
           <Route path="/movies" element={<Movies />} />
           <Route path="/movies/:id" element={<MovieDetail />} />
-          <Route path="/movies/:id/:date" element={<SeatLayout />} />
+          <Route path="/movies/:id/:date" element={<SeatLayout user={data} />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/mybooking" element={<MyBooking  data={data} setData={setData}/>} />
           <Route path="/sso-callback" element={<SSOCallback />} />

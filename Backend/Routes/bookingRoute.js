@@ -1,5 +1,8 @@
 const express=require("express");
-const { bookSeats } = require("../Controller/BookingController");
+const { bookSeats, getbookedSeats } = require("../Controller/BookingController");
 
 const bookingRoute=express.Router();
-bookingRoute.post("/booking",bookSeats);
+bookingRoute.post("/Moviebooking",bookSeats);
+bookingRoute.get("/getmoviebyId/:id",getbookedSeats)
+
+module.exports={bookingRoute}

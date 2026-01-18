@@ -24,52 +24,30 @@ const Login = ({ setData }) => {
     e.preventDefault();
 
     try {
-      if (currentState === "signup") {
-        const response = await axios.post(
-          `${url}/api/user/register`,
-          formData
-        );
+      const endpoint = currentState === "signup" ? "/api/user/register" : "/api/user/login";
+      const payload = currentState === "signup" ? formData : { email: formData.email, password: formData.password };
 
-        if (response.data.success) {
-          const userData = {
-            name: formData.name,
-            email: formData.email,
-            token: response.data.data,
-          };
+      const response = await axios.post(`${url}${endpoint}`, payload);
 
-          setData(userData);
-          localStorage.setItem("user", JSON.stringify(userData));
+      // Log the backend response to check _id
+      console.log("Backend user object:", response.data.data.user);
 
-          toast.success("Signup successful!");
-          setFormData({ name: "", email: "", password: "" });
-          navigate("/");
-        } else {
-          toast.error(response.data.message || "Signup failed");
-        }
+      if (response.data.success) {
+        const userData = response.data.data.user; // includes _id
+        const token = response.data.data.token;
+
+        // Save exactly what backend returns
+        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("token", token);
+
+        // Update state
+        setData(userData);
+
+        toast.success(currentState === "signup" ? "Signup successful!" : "Login successful!");
+        setFormData({ name: "", email: "", password: "" });
+        navigate("/");
       } else {
-        const response = await axios.post(
-          `${url}/api/user/login`,
-          {
-            email: formData.email,
-            password: formData.password
-          }
-        );
-
-        if (response.data.success) {
-          const userData = {
-            email: formData.email,
-            token: response.data.data,
-          };
-
-          setData(userData);
-          localStorage.setItem("user", JSON.stringify(userData));
-
-          toast.success("Login successful!");
-          setFormData({ name: "", email: "", password: "" });
-          navigate("/");
-        } else {
-          toast.error(response.data.message || "Login failed");
-        }
+        toast.error(response.data.message || "Authentication failed");
       }
     } catch (error) {
       console.error(error);
@@ -80,9 +58,7 @@ const Login = ({ setData }) => {
   return (
     <div className="login-container">
       <div className="login-box">
-        <h2 className="login-title">
-          {currentState === "signup" ? "Sign Up" : "Login"}
-        </h2>
+        <h2 className="login-title">{currentState === "signup" ? "Sign Up" : "Login"}</h2>
 
         <form className="login-form" onSubmit={submitHandler}>
           {currentState === "signup" && (
@@ -122,17 +98,11 @@ const Login = ({ setData }) => {
           </button>
 
           {currentState === "signup" ? (
-            <p
-              className="Switch"
-              onClick={() => setCurrentState("login")}
-            >
+            <p className="Switch" onClick={() => setCurrentState("login")}>
               Already have an account? Login
             </p>
           ) : (
-            <p
-              className="Switch"
-              onClick={() => setCurrentState("signup")}
-            >
+            <p className="Switch" onClick={() => setCurrentState("signup")}>
               Don’t have an account? Sign up
             </p>
           )}
