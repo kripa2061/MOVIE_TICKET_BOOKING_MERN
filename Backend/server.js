@@ -9,6 +9,8 @@ const { clerkMiddleware } = require("@clerk/express");
 const { serve } = require("inngest/express");
 const { inngest, functions } = require("./Inngest/Index");
 
+const { movieRoute } = require("./Routes/MovieRoute");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 connectDB(); 
@@ -17,7 +19,11 @@ const allowedOrigins = ['http://localhost:5173'];
 app.use(cookieParser()); 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 app.use(express.json());
+// in your Express app
+app.use('/uploads', express.static('uploads'));
+
 app.use('/api/user',userRouter);
+app.use('/api/movie',movieRoute)
 
 app.get("/", (req, res) => {
   res.send("Server running and database connected!");

@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { assets } from '../assets-3/assets'
-import { Menu, Search, TicketPlus, X } from 'lucide-react'
+import { Menu, Search, X } from 'lucide-react'
 import "./Navbar.css";
-import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
-const Navbar = ({data,setdata}) => {
+
+const Navbar = ({ data, setData }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate()
+  const [profileOpen, setProfileOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setData(null);
+    navigate("/login");
+  };
 
   return (
     <>
@@ -19,31 +26,51 @@ const Navbar = ({data,setdata}) => {
 
         <div className={`navbar-links ${isOpen ? "active" : ""}`}>
           <X className="close-icon" onClick={() => setIsOpen(false)} />
-          <Link to="/" onClick={() => { window.scrollTo(0, 0); setIsOpen(false) }}>Home</Link>
-          <Link to="/movies" onClick={() => { window.scrollTo(0, 0); setIsOpen(false) }}>Movies</Link>
-          <Link to="/" onClick={() => { window.scrollTo(0, 0); setIsOpen(false) }}>Theaters</Link>
-          <Link to="/" onClick={() => { window.scrollTo(0, 0); setIsOpen(false) }}>Releases</Link>
-          <Link to="/favorite" onClick={() => { window.scrollTo(0, 0); setIsOpen(false) }}>Favorites</Link>
+          <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+          <Link to="/movies" onClick={() => setIsOpen(false)}>Movies</Link>
+          <Link to="/">Theaters</Link>
+          <Link to="/">Releases</Link>
+          <Link to="/favorite">Favorites</Link>
         </div>
 
         <div className="navbar-actions">
           <Search className="navbar-icon" />
-          {!data?(
-            <div onClick={()=>{navigate("/login")}}>
-              <button>Login</button>
-               </div>
-          ):(
-            <div> 
-              {data.name[0].toUpperCase()}
-            </div>
-          )
-          }
 
-          {!isOpen && <Menu className="navbar-icon menu-icon" onClick={() => setIsOpen(true)} />}
+          {!data ? (
+            <button
+              className='login-button'
+              onClick={() => navigate("/login")}
+            >
+              Login
+            </button>
+          ) : (
+            <div
+              className="profile-icon"
+              onClick={() => setProfileOpen(!profileOpen)}
+            >
+              {data?.email?.charAt(0).toUpperCase()}
+            </div>
+          )}
+
+          {data && profileOpen && (
+            <div className='profile-open'>
+              <ul>
+                <li onClick={() => navigate("/mybooking")}>My Booking</li>
+                <li onClick={handleLogout}>Logout</li>
+              </ul>
+            </div>
+          )}
+
+          {!isOpen && (
+            <Menu
+              className="navbar-icon menu-icon"
+              onClick={() => setIsOpen(true)}
+            />
+          )}
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

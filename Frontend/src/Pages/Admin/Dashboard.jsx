@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { ChartLineIcon, CircleDollarSignIcon, PlayCircleIcon, Users2Icon, Loader, StarIcon } from 'lucide-react';
-import { dummyDashboardData } from '../../assets-3/assets';
 import BlurCircle from '../../Component/BlurCircle';
-import './Dashboard.css';
 import { dateFormat } from '../../lib/DateFormat';
+import { toast } from 'react-hot-toast';
+import './Dashboard.css';
+import isoTimeFormat from '../../lib/ISOTIMEFORMAT';
 
 const Dashboard = () => {
   const [dashboardData, setDashboardData] = useState({
@@ -14,11 +16,26 @@ const Dashboard = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [shows, setShows] = useState({ activeShows: [] });
 
+  const url = 'http://localhost:8000'; // your backend URL
+
+  // Fetch dashboard data
   const fetchDashboardData = async () => {
-    setDashboardData(dummyDashboardData);
+    try {
+      const response = await axios.get(`${url}/api/movie/movieList`);
+      if (response.data.success) {
+        toast.success('Movies fetched successfully');
+        // Wrap the movie array in an object with activeShows key
+        setShows({ activeShows: response.data.data });
+      } else {
+        toast.error('Failed to fetch movies');
+      }
+    } catch (err) {
+      toast.error(err.message || 'Server error');
+    }
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchDashboardData();
@@ -27,7 +44,7 @@ const Dashboard = () => {
   const stats = [
     { title: "Total Booking", value: dashboardData.totalBookings, icon: ChartLineIcon },
     { title: "Total Revenue", value: dashboardData.totalRevenue, icon: CircleDollarSignIcon },
-    { title: "Active Shows", value: dashboardData.activeShows.length, icon: PlayCircleIcon },
+    { title: "Active Shows", value: shows.activeShows.length, icon: PlayCircleIcon },
     { title: "Total User", value: dashboardData.totalUser, icon: Users2Icon }
   ];
 
@@ -55,31 +72,51 @@ const Dashboard = () => {
                   </div>
                   <StatIcon className="adm-stat-icon" />
                 </div>
-              )
+              );
             })}
           </div>
 
           <p className="adm-section-title">Active Shows</p>
           <div className="adm-active-shows">
-            {dashboardData.activeShows.map((show) => (
-              <div key={show._id} className="adm-show-box">
-                <img src={show.movie.poster_path} alt={show.movie.title} className="adm-show-image"/>
-                <p className="adm-show-title">{show.movie.title}</p>
-                <div className="adm-show-price-rating">
-                  <p className="adm-show-price">{show.showPrice}</p>
-                  <div className="adm-show-rating">
-                    <StarIcon className="adm-show-star-icon"/>
-                    {show.movie.vote_average.toFixed(1)}
+            {shows.activeShows.length === 0 ? (
+              <p>No active shows</p>
+            ) : (
+              shows.activeShows.map((item) => (
+                <div key={item._id} className="adm-show-box">
+                  <img src={`${url}/Uploads/${item.image}`}  className="adm-show-image"/>
+                  <p className="adm-show-title">{item.name}</p>
+                  <div className="adm-show-price-rating">
+                    <p className="adm-show-price">Rs. {item.price}</p>
+                    {/* <div className="adm-show-rating">
+                      <StarIcon className="adm-show-star-icon"/>
+                      {show.vote_average.toFixed(1)}
+                    </div> */}
                   </div>
+                 {item.datetime && item.datetime.length > 0 ? (
+                  item.datetime.map((d, idx) => {
+                    if (!d.date) return null; // skip invalid entries
+                    const datePart = d.date.split("T")[0];      // "YYYY-MM-DD"
+                    const isoString = `${datePart}T${d.time || "00:00"}:00`; // fallback time
+                    return (
+                      <span key={d._id}>
+                        {isoTimeFormat(isoString)}
+                        {idx < item.datetime.length - 1 && ", "}
+                      </span>
+                    );
+
+                  })
+
+                ) : (
+                  <span>No showtimes</span>
+                )}
                 </div>
-                <p className="adm-show-date">{dateFormat(show.showDateTime)}</p>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       )}
     </>
-  )
-}
+  );
+};
 
 export default Dashboard;

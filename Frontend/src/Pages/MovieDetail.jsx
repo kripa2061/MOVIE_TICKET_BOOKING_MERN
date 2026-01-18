@@ -1,68 +1,76 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './MovieDetail.css';
-import { dummyDateTimeData, dummyShowsData } from '../assets-3/assets';
 import isoTimeFormat from '../lib/ISOTIMEFORMAT';
 import { Heart, PlayCircleIcon, StarIcon, X } from 'lucide-react';
 import DateSelect from '../Component/DateSelect';
 import MovieCard from '../Component/MovieCard';
 import Loading from '../Component/Loading';
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import { dummyShowsData } from '../assets-3/assets'; // for recommendations
 
 const MovieDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [showData, setShowData] = useState(null);
+
+  const [show, setShow] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
 
-  useEffect(() => {
-    const show = dummyShowsData.find(movie => movie._id === id);
-    if (show) {
-      setShowData({
-        movie: show,
-        dateTime: dummyDateTimeData
-      });
+  const url = "http://localhost:8000";
+
+  const handleShowDetail = async () => {
+    try {
+      const response = await axios.get(`${url}/api/movie/getbyId/${id}`);
+      if (response.data.success) {
+        setShow(response.data.data);
+        setTrailerOpen(false);
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (err) {
+      toast.error(err.message || "Server Error");
     }
+  };
+
+  useEffect(() => {
+    handleShowDetail();
   }, [id]);
 
-  if (!showData) return <Loading />;
-
-  const { movie, dateTime } = showData;
+  if (!show) return <Loading />;
 
   return (
     <section className="detail-section">
+      {/* Poster and basic info */}
       <div className="detail-content">
-        <img
-          src={movie.poster_path}
-          alt={movie.title}
-          className="detail-poster"
-        />
+        <img src={`${url}/uploads/${show.image}`} alt={show.name} className="detail-poster" />
 
         <div className="detail-info">
           <div className="detail-glow" />
           <p className="detail-lang">
-            {movie.original_language?.toUpperCase() || 'ENGLISH'}
+            {show.original_language?.toUpperCase() || 'ENGLISH'}
           </p>
-          <h1 className="detail-title">{movie.title}</h1>
+          <h1 className="detail-title">{show.name}</h1>
 
           <div className="detail-rating">
-            <StarIcon className="star-icon"/>
-            {movie.vote_average?.toFixed(1)} User Rating
+            <StarIcon className="star-icon" />
+            {show.vote_average?.toFixed(1) || 6} User Rating
           </div>
 
-          <p className="detail-overview">{movie.overview}</p>
+          <p className="detail-overview">{show.description}</p>
 
-          <p className="detail-meta">
-            {isoTimeFormat(movie.runtime)} · {movie.genres?.map(g => g.name).join(', ')} · {movie.release_date?.split('-')[0]}
-          </p>
+          {/* Meta info if available */}
+          {show.runtime && (
+            <p className="detail-meta">
+              {isoTimeFormat(show.runtime)} · {show.genres?.map(g => g.name).join(', ')} · {show.release_date?.split('-')[0]}
+            </p>
+          )}
 
+          {/* Buttons */}
           <div className="detail-buttons">
-            {movie.trailer ? (
-              <button 
-                className="button-trailer"
-                onClick={() => setTrailerOpen(true)}
-              >
-                <PlayCircleIcon className="icon"/>
-                Watch Trailer
+            {show.trailer ? (
+              <button className="button-trailer" onClick={() => setTrailerOpen(true)}>
+                <PlayCircleIcon className="icon" /> Watch Trailer
               </button>
             ) : (
               <button className="button-trailer disabled" disabled>
@@ -75,46 +83,55 @@ const MovieDetail = () => {
             </a>
 
             <button className="button-heart">
-              <Heart className="icon"/>
+              <Heart className="icon" />
             </button>
           </div>
         </div>
       </div>
 
-      <p className="cast-title">Your Favorite Cast</p>
-      <div className="cast-list">
-        {movie.casts?.slice(0, 12).map((cast, index) => (
-          <div key={index} className="cast-item">
-            <img src={cast.profile_path} alt={cast.name} className="cast-img"/>
-            <p className="cast-name">{cast.name}</p>
+      {/* Cast list */}
+      {show.casts && show.casts.length > 0 && (
+        <>
+          <p className="cast-title">Your Favorite Cast</p>
+          <div className="cast-list">
+            {show.casts.slice(0, 12).map((cast, index) => (
+              <div key={index} className="cast-item">
+                <img src={`${url}/uploads/${cast.profile_path}`} alt={cast.name} className="cast-img" />
+                <p className="cast-name">{cast.name}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
 
-      <DateSelect dateTime={dateTime} id={id} />
+      {/* Date selection */}
+      <DateSelect dateTime={show.datetime} id={id} />
 
+      {/* Recommended movies */}
       <p className="recommend-title">You May Also Like</p>
       <div className="recommend-list">
-        {dummyShowsData.slice(0,4).map((movie,index)=>(
-          <MovieCard key={index} movie={movie}/>
+        {dummyShowsData.slice(0, 4).map((movie, index) => (
+          <MovieCard key={index} movie={movie} />
         ))}
       </div>
 
+      {/* Show more button */}
       <div className="show-more-wrapper">
-        <button onClick={()=> {navigate('/movies'); scrollTo(0,0)}} className="show-more-btn">
+        <button onClick={() => { navigate('/movies'); window.scrollTo(0, 0); }} className="show-more-btn">
           Show more
         </button>
       </div>
 
-      {trailerOpen && movie.trailer && (
+      {/* Trailer modal */}
+      {trailerOpen && show.trailer && (
         <div className="trailer-modal">
           <div className="trailer-content">
             <button className="close-btn" onClick={() => setTrailerOpen(false)}>
-              <X size={24}/>
+              <X size={24} />
             </button>
-            <iframe 
-              src={movie.trailer}
-              title={`${movie.title} Trailer`}
+            <iframe
+              src={show.trailer}
+              title={`${show.name} Trailer`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

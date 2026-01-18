@@ -1,32 +1,27 @@
-import React from 'react'
-import { dummyShowsData } from '../assets-3/assets'
-import BlurCircle from '../Component/BlurCircle'
-import MovieCard from '../Component/MovieCard'
-import "./Movies.css"
-import { Loader } from 'lucide-react'
+// Movies.jsx
+import React, { useEffect, useState, useRef } from 'react';
+
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
+import MovieCard from '../Component/MovieCard';
 
 const Movies = () => {
-  return (
-    <div className="movie-container">
-      {dummyShowsData.length > 0 ? (
-        <div className="movie-show">
-          <BlurCircle />
-          <BlurCircle />
-          <p className='movies-showing'>Now Showing</p>
+  const [shows, setShows] = useState([]);
+  const fetched = useRef(false);
 
-          <div className="movie-card-container">
-            {dummyShowsData.map((movie) => (
-              <MovieCard movie={movie} key={movie._id} />
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className="movie-message">
-          <Loader/>
-        </div>
-      )}
-    </div>
-  )
-}
+  useEffect(() => {
+    if (fetched.current) return; // prevents duplicate fetch
+    fetched.current = true;
 
-export default Movies
+    axios.get("http://localhost:8000/api/movie/movieList")
+      .then(res => {
+        if (res.data.success) setShows(res.data.data);
+        else toast.error(res.data.message);
+      })
+      .catch(err => toast.error(err.message || "Server Error"));
+  }, []);
+
+  return <MovieCard shows={shows} />;
+};
+
+export default Movies;

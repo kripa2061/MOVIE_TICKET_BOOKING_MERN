@@ -173,3 +173,81 @@ body {
 }
 
 }
+.navbar-actions .login-button{
+    border-radius: 60px;
+    background-color: red;
+width: 90px;
+height: 40px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+/* Profile icon container */
+.navbar-actions .profile-icon {
+  width: 35px;
+  height: 35px;
+  background-color: red; /* You can change to your theme color */
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50%; /* makes it circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+/* Hover effect */
+.navbar-actions .profile-icon:hover {
+  transform: scale(1.1);
+  background-color: red;
+}
+
+/* Optional: margin between search icon and profile */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* space between icons/buttons */
+  position: relative;
+}
+profile-open {
+  position: absolute;
+  top: 50px;              /* below profile icon */
+  right: 0;
+  width: 160px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  z-index: 50;
+  overflow: hidden;
+  animation: dropdownFade 0.2s ease-in-out;
+}
+
+.profile-open ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-open ul li {
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  transition: background-color 0.2s ease;
+}
+
+.profile-open ul li:hover {
+  background-color: #ff3b3b;
+}
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

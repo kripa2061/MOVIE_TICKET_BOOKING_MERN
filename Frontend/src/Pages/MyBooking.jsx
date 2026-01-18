@@ -5,7 +5,7 @@ import BlurCircle from '../Component/BlurCircle';
 import './MyBooking.css'
 import { dateFormat } from '../lib/DateFormat';
 
-const MyBooking = () => {
+const MyBooking = ({data}) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [booking, setBooking] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -21,7 +21,7 @@ const MyBooking = () => {
 
   return (
     <div className="mybooking-container">
-      {!isLoading ? (
+      {data && !isLoading ? (
         <>
           <p>My Bookings</p>
           <BlurCircle top="100px" left="100px" size="400px" blur="150px" />

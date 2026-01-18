@@ -8,6 +8,8 @@ import mail_icon from './mail_icon.svg'
 import person_icon from './person_icon.svg'
 import lock_icon from './lock_icon.svg'
 import google from './google.png'
+
+import uploadarea from './upload_area.png'
 export const assets = {
     logo,
     marvelLogo,
@@ -18,7 +20,8 @@ export const assets = {
     mail_icon,
     person_icon,
     lock_icon,
-    google
+    google,
+    uploadarea
 }
 
 export const dummyTrailers = [

@@ -6,6 +6,7 @@ import BlurCircle from '../Component/BlurCircle';
 import './seatLayout.css';
 import isoTimeFormat from '../lib/ISOTIMEFORMAT';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 const SeatLayout = () => {
   const navigate = useNavigate();
@@ -21,15 +22,24 @@ const SeatLayout = () => {
     ['G', 'H'],
     ['I', 'J']
   ];
+ const url = "http://localhost:8000";
+
+  const handleShowDetail = async () => {
+    try {
+      const response = await axios.get(`${url}/api/movie/getbyId/${id}`);
+      if (response.data.success) {
+        setShow(response.data.data);
+
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (err) {
+      toast.error(err.message || "Server Error");
+    }
+  };
 
   useEffect(() => {
-    const showData = dummyShowsData.find(show => show._id === id);
-    if (showData) {
-      setShow({
-        movie: showData,
-        dateTime: dummyDateTimeData
-      });
-    }
+    handleShowDetail();
   }, [id]);
 
   const handleSeatClick = (seatId) => {
@@ -54,7 +64,7 @@ const SeatLayout = () => {
       toast.error("Please select at least one seat");
       return;
     }
-
+console.log("clicked")
     navigate('/mybooking', {
       state: { selectedSeats, selectedTime, movie: show.movie, date }
     });
@@ -66,23 +76,26 @@ const SeatLayout = () => {
       {show ? (
         <div className="layout-container">
 
-          <div className="blur-background">
+          {/* <div className="blur-background">
             <BlurCircle top="-150px" left="-150px" size="400px" blur="150px" />
-            <BlurCircle bottom="-200px" right="-200px" size="500px" blur="200px" />
+            <BlurCircle bottom="200px" right="-200px" size="500px" blur="200px" />
             <BlurCircle top="50%" left="50%" size="600px" blur="180px" />
-          </div>
+          </div> */}
+          <BlurCircle/>
+          
 
           <div className="time-section">
             <p className="timing-header">Available Timings</p>
             <div className="available-time">
-              {show.dateTime[date]?.map((item, index) => (
+              {show.datetime.map((item, index) => (
                 <div
                   key={index}
                   className={`time-item ${selectedTime === item.time ? 'selected-time' : ''}`}
                   onClick={() => setSelectedTime(item.time)}
                 >
                   <ClockIcon />
-                  <p>{isoTimeFormat(item.time)}</p>
+                  <BlurCircle/>
+                  <p>{(item.time)}</p>
                 </div>
               ))}
             </div>
@@ -126,11 +139,13 @@ const SeatLayout = () => {
             </div>
           </div>
 
-         <button className="payment-button" onClick={handleProceedToCheckout}>
+         <button  className="payment-button" onClick={handleProceedToCheckout}>
   Proceed to Check Out
 </button>
 <ArrowRight className="arrow-right" />
+<BlurCircle right='50px' buttom='500px'/>
 </div>
+
       ) : (
         <div className="loader-container">
           <Loader />
