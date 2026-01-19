@@ -6,9 +6,20 @@ const bookingSchema = new mongoose.Schema({
   bookedSeats: { type: [String], required: true }, // array of seat numbers
   amount: { type: Number},
   isPaid: { type: Boolean, default: false },
-showDateTime: {
-  date: { type: String },
-  time: { type: String }
+// showDateTime: {
+//   date: { type: String },
+//   time: { type: String }
+// },
+showDateTime: [
+  {
+    date: { type: String },
+    time: { type: String }
+  }
+],
+
+"image":{
+      type:String,
+    
 }
 
 }, { timestamps: true });

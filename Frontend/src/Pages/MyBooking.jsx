@@ -4,24 +4,33 @@ import { Loader } from 'lucide-react';
 import BlurCircle from '../Component/BlurCircle';
 import './MyBooking.css'
 import { dateFormat } from '../lib/DateFormat';
-
-const MyBooking = ({data}) => {
+import toast from 'react-hot-toast';
+import axios from 'axios';
+import isoTimeFormat from '../lib/ISOTIMEFORMAT';
+const MyBooking = ({ data }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [booking, setBooking] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
-  const getMyBookings = async () => {
-    setBooking(dummyBookingData)
-    setIsLoading(false);
+  const url = "http://localhost:8000";
+  const user = JSON.parse(localStorage.getItem("user"));
+  const id = user?._id
+  const getMyBookings = async (id) => {
+    const response = await axios.get(`${url}/api/booking/getmoviebyId/${id}`)
+    if (response.data.success) {
+      setBooking(response.data.data)
+      setIsLoading(false)
+    } else {
+      toast.error("No booking Found")
+    }
   }
 
   useEffect(() => {
-    getMyBookings();
+    getMyBookings(id);
   }, [])
 
   return (
     <div className="mybooking-container">
-      {data && !isLoading ? (
+      {booking && !isLoading ? (
         <>
           <p>My Bookings</p>
           <BlurCircle top="100px" left="100px" size="400px" blur="150px" />
@@ -31,16 +40,33 @@ const MyBooking = ({data}) => {
             {booking.map((item, index) => (
               <div key={index} className="mybooking-card">
                 <div className="mybooking-left">
-                  <img src={item.show.movie.poster_path} alt={item.show.movie.title} />
+                  <img src={`${url}/uploads/${item.image}`} alt={item.name} />
                 </div>
                 <div className="mybooking-center">
-                  <h3>{item.show.movie.title}</h3>
-                  <p className="runtime">Runtime: {item.show.movie.runtime} mins</p>
-                  <p className="show-date">{dateFormat(item.show.showDateTime)}</p>
+                  <h3>{item.name}</h3>
+                  {/* <p className="runtime">Runtime: {item.show.movie.runtime} mins</p> */}
+                  <div className="show-date">
+                    {item.showDateTime && item.showDateTime.length > 0 ? (
+                      item.showDateTime.map((i, idx) => {
+                        const isoString = i.time
+                          ? `${i.date.split("T")[0]}T${i.time}:00`
+                          : i.date; // fallback if time is missing
+
+                        return (
+                          <p key={idx}>
+                            {isoTimeFormat(isoString)}
+                          </p>
+                        );
+                      })
+                    ) : (
+                      <div>No showtime</div>
+                    )}
+                  </div>
+
                 </div>
 
                 <div className="mybooking-right">
-                  <p className="amount">{currency}{item.amount}</p>
+                  {/* <p className="amount">{currency}{item.amount}</p> */}
                   <p>Total Tickets: {item.bookedSeats.length}</p>
                   <p>Seats: {item.bookedSeats.join(', ')}</p>
                   {!item.isPaid && <button className="pay-btn">Pay Now</button>}

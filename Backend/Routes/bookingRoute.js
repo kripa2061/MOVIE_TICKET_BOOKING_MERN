@@ -1,8 +1,8 @@
 const express=require("express");
-const { bookSeats, getbookedSeats } = require("../Controller/BookingController");
+const { bookSeats, getbookedSeats, getBookingsByUser } = require("../Controller/BookingController");
 
 const bookingRoute=express.Router();
 bookingRoute.post("/Moviebooking",bookSeats);
-bookingRoute.get("/getmoviebyId/:id",getbookedSeats)
+bookingRoute.get("/getmoviebyId/:userId",getBookingsByUser)
 
 module.exports={bookingRoute}
