@@ -11,10 +11,12 @@ const AddShow = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [showPrice, setShowPrice] = useState('');
+  const [movieURL, setMovieURL] = useState('');
   const [poster, setPoster] = useState(null);
   const [posterFile, setPosterFile] = useState(null);
   const [dateTimeSelection, setDateTimeSelection] = useState({});
   const [dateTimeInput, setDateTimeInput] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const url = 'http://localhost:8000';
 
@@ -41,7 +43,7 @@ const AddShow = () => {
     setDateTimeSelection((prev) => {
       const times = prev[date] || [];
       if (!times.includes(time)) {
-        return { ...prev, [date]: [...times, time] };
+        return { ...prev, [date]: [...times, time].sort() };
       }
       return prev;
     });
@@ -74,35 +76,42 @@ const AddShow = () => {
     formData.append('name', name);
     formData.append('description', description);
     formData.append('price', showPrice);
+    formData.append('url', movieURL); // movie URL added
     formData.append('datetime', JSON.stringify(dateTimeSelection));
     formData.append('image', posterFile);
+    formData.append('movieUrl',movieURL)
 
     try {
+      setLoading(true);
       const response = await axios.post(`${url}/api/movie/addMovie`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
+      setLoading(false);
 
       if (response.data.success) {
         toast.success('Movie show added successfully!');
         setName('');
         setDescription('');
         setShowPrice('');
+        setMovieURL('');
         setPoster(null);
         setPosterFile(null);
         setDateTimeSelection({});
+        setMovieURL('');
       } else {
         toast.error(response.data.message || 'Something went wrong');
       }
     } catch (err) {
+      setLoading(false);
       toast.error(err.message || 'Server error');
     }
   };
 
   return (
     <form className="adm-add-show" onSubmit={handleAddShow}>
- <BlurCircle className="blur-circle" top="100px" left="100px" size="400px" blur="100px" />
-<BlurCircle className="blur-circle" top="50%" left="50%" size="600px" blur="300px" />
-<p>Add Movie</p>
+      <BlurCircle className="blur-circle" top="100px" left="100px" size="400px" blur="100px" />
+      <BlurCircle className="blur-circle" top="50%" left="50%" size="600px" blur="300px" />
+      <p>Add Movie</p>
 
       {/* Movie Name Input */}
       <div className="adm-upload-name">
@@ -114,11 +123,21 @@ const AddShow = () => {
         />
       </div>
 
+      {/* Movie URL Input */}
+      <div className="adm-upload-name">
+        <input
+          type="text"
+          placeholder="Enter URL of movie"
+          value={movieURL}
+          onChange={(e) => setMovieURL(e.target.value)}
+        />
+      </div>
+
       {/* Poster Upload */}
       <div className="adm-upload-description">
         <input type="file" accept="image/*" hidden id="posterUpload" onChange={handlePosterUpload} />
         <label htmlFor="posterUpload" className="adm-upload-area">
-          <img src={poster || assets.uploadarea} alt="Upload Movie Poster" />
+          {poster ? <img src={poster} alt="Movie Poster" /> : 'Upload Thumbnail'}
         </label>
         <textarea
           className="adm-movie-description"
@@ -166,10 +185,7 @@ const AddShow = () => {
                   {times.map((time) => (
                     <div key={time} className="adm-time-item">
                       <span>{time}</span>
-                      <DeleteIcon
-                        className="adm-delete-icon"
-                        onClick={() => handleRemoveTime(date, time)}
-                      />
+                      <DeleteIcon className="adm-delete-icon" onClick={() => handleRemoveTime(date, time)} />
                     </div>
                   ))}
                 </div>
@@ -183,9 +199,9 @@ const AddShow = () => {
       <button
         type="submit"
         className="adm-add-show-btn"
-        disabled={!name || !description || !showPrice || !posterFile || Object.keys(dateTimeSelection).length === 0}
+        disabled={loading || !name || !description || !showPrice || !posterFile || Object.keys(dateTimeSelection).length === 0}
       >
-        Add Show
+        {loading ? <Loader className="loader-icon" /> : 'Add Show'}
       </button>
     </form>
   );

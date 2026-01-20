@@ -8,7 +8,7 @@ import MovieCard from '../Component/MovieCard';
 import Loading from '../Component/Loading';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { dummyShowsData } from '../assets-3/assets'; // for recommendations
+
 
 const MovieDetail = () => {
   const navigate = useNavigate();
@@ -16,8 +16,23 @@ const MovieDetail = () => {
 
   const [show, setShow] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
-
+const[fetchmovie,setFetchMovie]=useState([]);
   const url = "http://localhost:8000";
+  const fetchShows = async () => {
+    try {
+      const response = await axios.get(`${url}/api/movie/movieList`);
+      if (response.data.success) {
+        const movies = response.data.data;
+        setFetchMovie(movies);
+
+     
+      } else {
+        toast.error(response.data.message);
+      }
+    } catch (err) {
+      toast.error(err.message || 'Server Error');
+    }
+  };
 
   const handleShowDetail = async () => {
     try {
@@ -35,6 +50,7 @@ const MovieDetail = () => {
 
   useEffect(() => {
     handleShowDetail();
+    fetchShows()
   }, [id]);
 
   if (!show) return <Loading />;
@@ -68,7 +84,7 @@ const MovieDetail = () => {
 
           {/* Buttons */}
           <div className="detail-buttons">
-            {show.trailer ? (
+            {show.movieUrl ? (
               <button className="button-trailer" onClick={() => setTrailerOpen(true)}>
                 <PlayCircleIcon className="icon" /> Watch Trailer
               </button>
@@ -110,7 +126,7 @@ const MovieDetail = () => {
       {/* Recommended movies */}
       <p className="recommend-title">You May Also Like</p>
       <div className="recommend-list">
-        {dummyShowsData.slice(0, 4).map((movie, index) => (
+        {fetchmovie.slice(0,4).map((movie, index) => (
           <MovieCard key={index} movie={movie} />
         ))}
       </div>
@@ -123,15 +139,15 @@ const MovieDetail = () => {
       </div>
 
       {/* Trailer modal */}
-      {trailerOpen && show.trailer && (
+      {trailerOpen && show.movieUrl && (
         <div className="trailer-modal">
           <div className="trailer-content">
             <button className="close-btn" onClick={() => setTrailerOpen(false)}>
               <X size={24} />
             </button>
             <iframe
-              src={show.trailer}
-              title={`${show.name} Trailer`}
+              src={show.movieUrl}
+              title={`${show.name} movieUrl`}
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen

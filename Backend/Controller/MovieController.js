@@ -2,7 +2,8 @@ const  movieModel  = require("../Model/MovieModel");
 
 const addMovie = async (req, res) => {
   try {
-    let image_fileName = req.file ? req.file.filename : "";
+  let image_fileName = req.file ? req.file.filename : req.body.image;
+let thumbnail_fileName = req.file ? req.file.filename : req.body.thumbnail;
 
     let datetimeArray = [];
     if (req.body.datetime) {
@@ -22,6 +23,8 @@ const addMovie = async (req, res) => {
       price: req.body.price,
       datetime: datetimeArray,
       image: image_fileName,
+      thumbnail:thumbnail_fileName,
+      movieUrl:req.body.movieUrl
     });
 
     await movie.save();

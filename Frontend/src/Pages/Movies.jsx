@@ -22,6 +22,7 @@ const Movies = () => {
   }, []);
 
   return <MovieCard shows={shows} />;
+  
 };
 
 export default Movies;

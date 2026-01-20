@@ -20,6 +20,14 @@ const movieSchema = new mongoose.Schema({
 "image":{
       type:String,
        required:true
+},
+"thumbnail":{
+      type:String,
+  
+},
+"movieUrl":{
+      type:String,
+    required:true
 }
 })
 const movieModel = mongoose.model("movie", movieSchema);

@@ -12,7 +12,7 @@ const ListShows = () => {
     const response = await axios.get(`${url}/api/movie/movieList`)
     console.log(response.data.data);
     if (response.data.success) {
-      toast("movie fetched successfully")
+      
       setShows(response.data.data)
 
     }
