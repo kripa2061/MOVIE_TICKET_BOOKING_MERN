@@ -14,7 +14,7 @@ const SeatLayout = ({user}) => {
   const [show, setShow] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
-
+const[seatsPrice,setSeatsPrice]=useState(0);
   const groupRow = [
     ['A', 'B'],
     ['C', 'D'],
@@ -31,6 +31,7 @@ const SeatLayout = ({user}) => {
       const response = await axios.get(`${url}/api/movie/getbyId/${id}`);
       if (response.data.success) {
         setShow(response.data.data);
+        setSeatsPrice(response.data.data.price||0)
       } else {
         toast.error(response.data.message);
       }
@@ -72,7 +73,7 @@ const SeatLayout = ({user}) => {
       toast.error("Please select at least one seat");
       return;
     }
-
+const totalPrice=selectedSeats.length*seatsPrice
     const bookingDetail = {
       userId: user._id,
       showId: show._id,
@@ -80,7 +81,9 @@ const SeatLayout = ({user}) => {
       showDateTime: {
         date: date,
         time: selectedTime
-      }
+      },
+      name:user.name,
+price:totalPrice
     };
   console.log("Booking detail being sent:", bookingDetail);
     try {

@@ -3,15 +3,23 @@ const movieModel=require("../Model/MovieModel")
 
 const bookSeats=async(req,res)=>{
     try {
-          const {userId,showId,bookedSeats,amount,isPaid,showDateTime}=req.body;
-    if(!userId||!showId||!bookedSeats||!showDateTime){
+          const {userId,showId,name,bookedSeats,price,isPaid,showDateTime}=req.body;
+    if(!userId||!showId||!name||!bookedSeats||!showDateTime||!price){
         return res.json({success:false,message:"missing Data"})
     }
       const movie = await movieModel.findById(showId);
+   
     if (!movie) return res.json({ success: false, message: "Movie not found" });
-    const booking= new bookingModel({
-        userId,showId,bookedSeats,amount,isPaid,showDateTime,image:movie.image
-    })
+     const booking = new bookingModel({
+      userId,
+      showId,
+      name,
+      bookedSeats,
+      price: price || movie.price, // use provided price or movie default
+      isPaid: isPaid || false,
+      showDateTime,
+      image: movie.image
+    });
     await booking.save();
     res.json({success:true,message:"Movie Booked"})
     } catch (error) {
@@ -31,5 +39,18 @@ const getBookingsByUser = async (req, res) => {
     res.json({ success: false, message: err.message });
   }
 };
+const getallBooking=async(req,res)=>{
+  try {
+      const booking=await bookingModel.find({})
+  if(!booking){
+  return res.json({success:false,message:"No Booking found"})
+  }else{
+      return res.json({success:true,data:{booking}})
+  }
+  } catch (error) {
+     return res.json({success:false,message:error.message})
+  }
 
-module.exports={bookSeats,getBookingsByUser}
+}
+
+module.exports={bookSeats,getBookingsByUser,getallBooking}

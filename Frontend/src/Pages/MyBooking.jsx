@@ -43,7 +43,7 @@ const MyBooking = ({ data }) => {
                   <img src={`${url}/uploads/${item.image}`} alt={item.name} />
                 </div>
                 <div className="mybooking-center">
-                  <h3>{item.name}</h3>
+                
                   {/* <p className="runtime">Runtime: {item.show.movie.runtime} mins</p> */}
                   <div className="show-date">
                     {item.showDateTime && item.showDateTime.length > 0 ? (
@@ -66,7 +66,7 @@ const MyBooking = ({ data }) => {
                 </div>
 
                 <div className="mybooking-right">
-                  {/* <p className="amount">{currency}{item.amount}</p> */}
+                  <p className="amount">{currency}{item.price}</p>
                   <p>Total Tickets: {item.bookedSeats.length}</p>
                   <p>Seats: {item.bookedSeats.join(', ')}</p>
                   {!item.isPaid && <button className="pay-btn">Pay Now</button>}
