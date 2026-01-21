@@ -1,6 +1,4 @@
-// Movies.jsx
 import React, { useEffect, useState, useRef } from 'react';
-
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import MovieCard from '../Component/MovieCard';
@@ -10,7 +8,7 @@ const Movies = () => {
   const fetched = useRef(false);
 
   useEffect(() => {
-    if (fetched.current) return; // prevents duplicate fetch
+    if (fetched.current) return;
     fetched.current = true;
 
     axios.get("http://localhost:8000/api/movie/movieList")
@@ -21,8 +19,13 @@ const Movies = () => {
       .catch(err => toast.error(err.message || "Server Error"));
   }, []);
 
-  return <MovieCard shows={shows} />;
-  
+  return (
+    <div className="movies-list">
+      {shows.map(movie => (
+        <MovieCard key={movie._id} movie={movie} />
+      ))}
+    </div>
+  );
 };
 
 export default Movies;

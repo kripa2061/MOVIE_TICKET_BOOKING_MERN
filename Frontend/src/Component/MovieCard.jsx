@@ -9,7 +9,7 @@ const MovieCard = ({ movie }) => {
 
   return (
     <div className="adm-show-box">
-      {movie.image && (
+      {movie && (
         <img
           src={`${url}/uploads/${movie.image}`}
           alt={movie.name}

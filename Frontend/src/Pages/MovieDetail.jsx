@@ -54,6 +54,7 @@ const[fetchmovie,setFetchMovie]=useState([]);
   }, [id]);
 
   if (!show) return <Loading />;
+console.log("Recommended movies:", fetchmovie);
 
   return (
     <section className="detail-section">
