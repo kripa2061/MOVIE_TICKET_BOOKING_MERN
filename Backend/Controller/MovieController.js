@@ -24,7 +24,10 @@ let thumbnail_fileName = req.file ? req.file.filename : req.body.thumbnail;
       datetime: datetimeArray,
       image: image_fileName,
       thumbnail:thumbnail_fileName,
-      movieUrl:req.body.movieUrl
+      movieUrl:req.body.movieUrl,
+      Runtime:req.body.Runtime,
+      generes:req.body.generes,
+      cast:req.body.cast
     });
 
     await movie.save();
