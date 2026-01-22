@@ -28,6 +28,15 @@ const movieSchema = new mongoose.Schema({
 "movieUrl":{
       type:String,
     required:true
+},
+"Runtime":{
+         type:String, 
+},
+"generes":{
+          type:String,
+},
+"cast":{
+          type:String,
 }
 })
 const movieModel = mongoose.model("movie", movieSchema);
