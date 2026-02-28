@@ -15,7 +15,7 @@ const MovieCard = ({ movie }) => {
           alt={movie.name}
           className="adm-show-image"
           onClick={() => {
-            navigate(`/movies/${movie._id}`);
+            navigate(`/movies/${movie._id}`); 
             window.scrollTo(0, 0);
           }}
         />
