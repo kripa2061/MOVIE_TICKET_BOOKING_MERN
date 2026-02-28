@@ -34,7 +34,7 @@ const Navbar = ({ data, setData }) => {
         </div>
 
         <div className="navbar-actions">
-          <Search className="navbar-icon" />
+         <Link to="/search"> <Search className="navbar-icon" /></Link>
 
           {!data ? (
             <button

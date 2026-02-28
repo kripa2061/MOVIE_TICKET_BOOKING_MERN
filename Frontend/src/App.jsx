@@ -18,6 +18,7 @@ import Dashboard from './Pages/Admin/Dashboard';
 import AddShow from './Pages/Admin/AddShow';
 import ListBooking from './Pages/Admin/ListBooking';
 import ListShows from './Pages/Admin/ListShows';
+import SearchPage from './Pages/SearchPage';
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -45,6 +46,7 @@ const App = () => {
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/mybooking" element={<MyBooking  data={data} setData={setData}/>} />
           <Route path="/sso-callback" element={<SSOCallback />} />
+          <Route path="/search" element={<SearchPage />} />
         </Route>
 
         {/* ADMIN ROUTES */}
