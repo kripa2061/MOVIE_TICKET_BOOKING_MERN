@@ -11,7 +11,7 @@ const MyBooking = ({ data }) => {
   const currency = import.meta.env.VITE_CURRENCY;
   const [booking, setBooking] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
   const user = JSON.parse(localStorage.getItem("user"));
   const id = user?._id
   const getMyBookings = async (id) => {

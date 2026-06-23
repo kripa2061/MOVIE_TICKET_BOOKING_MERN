@@ -11,7 +11,7 @@ const DateSelect = ({ id }) => {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(null);
   const [dates, setDates] = useState([]);
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
 
   // Fetch movie date/time from backend
   const fetchDates = async (id) => {

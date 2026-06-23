@@ -11,7 +11,7 @@ const Movies = () => {
     if (fetched.current) return;
     fetched.current = true;
 
-    axios.get("http://localhost:8000/api/movie/movieList")
+    axios.get("https://movie-ticket-booking-backend-m5sa.onrender.com/api/movie/movieList")
       .then(res => {
         if (res.data.success) setShows(res.data.data);
         else toast.error(res.data.message);

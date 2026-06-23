@@ -17,7 +17,7 @@ const MovieDetail = () => {
   const [show, setShow] = useState(null);
   const [trailerOpen, setTrailerOpen] = useState(false);
 const[fetchmovie,setFetchMovie]=useState([]);
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
   const fetchShows = async () => {
     try {
       const response = await axios.get(`${url}/api/movie/movieList`);

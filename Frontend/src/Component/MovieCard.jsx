@@ -5,7 +5,7 @@ import isoTimeFormat from "../lib/ISOTIMEFORMAT";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
 
   return (
     <div className="adm-show-box">

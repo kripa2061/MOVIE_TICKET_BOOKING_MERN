@@ -18,7 +18,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [shows, setShows] = useState({ activeShows: [] });
 
-  const url = 'http://localhost:8000'; // your backend URL
+  const url = 'https://movie-ticket-booking-backend-m5sa.onrender.com'; // your backend URL
 
   // Fetch dashboard data
   const fetchDashboardData = async () => {

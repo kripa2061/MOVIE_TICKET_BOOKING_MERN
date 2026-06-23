@@ -9,7 +9,7 @@ const TrailerSection = () => {
   const [currentTrailer, setCurrentTrailer] = useState(null);
   const [shows, setShows] = useState([]);
 
-  const url = 'http://localhost:8000';
+  const url = 'https://movie-ticket-booking-backend-m5sa.onrender.com';
 
   const fetchShows = async () => {
     try {

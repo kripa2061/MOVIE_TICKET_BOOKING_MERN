@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = ({ setData }) => {
   const navigate = useNavigate();
-  const url = "http://localhost:8000"; // backend URL
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com"; // backend URL
 
   const [currentState, setCurrentState] = useState("signup");
   const [formData, setFormData] = useState({

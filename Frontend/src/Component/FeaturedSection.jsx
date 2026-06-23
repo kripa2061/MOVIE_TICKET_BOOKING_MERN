@@ -13,7 +13,7 @@ import toast from 'react-hot-toast';
 const FeaturedSection = () => {
   const navigate = useNavigate();
   const [shows, setShows] = useState([]);
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
   const fetchShows = async () => {
     try {
       const response = await axios.get(`${url}/api/movie/movieList`);

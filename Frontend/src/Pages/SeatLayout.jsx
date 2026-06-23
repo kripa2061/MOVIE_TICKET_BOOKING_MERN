@@ -23,7 +23,7 @@ const[seatsPrice,setSeatsPrice]=useState(0);
     ['I', 'J']
   ];
 
-  const url = "http://localhost:8000";
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com";
 
 
   const handleShowDetail = async () => {

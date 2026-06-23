@@ -7,7 +7,7 @@ import isoTimeFormat from '../../lib/ISOTIMEFORMAT'
 const ListShows = () => {
   const [shows, setShows] = useState([])
   const currency = import.meta.env.VITE_CURRENCY;
-  const url = "http://localhost:8000"
+  const url = "https://movie-ticket-booking-backend-m5sa.onrender.com"
   const MovieList = async () => {
     const response = await axios.get(`${url}/api/movie/movieList`)
     console.log(response.data.data);

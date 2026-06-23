@@ -18,7 +18,7 @@ const AddShow = () => {
   const [dateTimeInput, setDateTimeInput] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const url = 'http://localhost:8000';
+  const url = 'https://movie-ticket-booking-backend-m5sa.onrender.com';
 
   // Load dummy movies for poster preview
   useEffect(() => {
