@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.51.1-canary.v20251006205521",
     "@heroicons/react": "^2.2.0",
+    "axios": "^1.18.1",
     "lucide-react": "^0.544.0",
     "multer": "^2.0.2",
     "react": "^18.3.1",
