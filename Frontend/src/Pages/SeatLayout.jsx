@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { assets } from '../assets-3/assets';
 import { ClockIcon, Loader, ArrowRight } from 'lucide-react';
 import BlurCircle from '../Component/BlurCircle';
-import './seatLayout.css';
+import './SeatLayout.css';
 import { toast } from 'react-hot-toast';
 import axios from 'axios';
 
